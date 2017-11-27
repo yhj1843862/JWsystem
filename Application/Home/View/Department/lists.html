@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+<include file="Common/header" />
+<style>
+    a{
+        text-decoration:none;
+    }
+</style>
+<body>
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="l">
+            <a class="btn btn-primary" title="添加院系" data-width="1000" data-href="{:U('add')}" onclick="openPage(this)" href="javascript:;">
+                <i class="Hui-iconfont Hui-iconfont-add"></i> 添加院系
+            </a>
+            <if condition="$pid">
+            <a class="btn btn-warning" href="javascript:window.history.go(-1);">
+                <i class="Hui-iconfont Hui-iconfont-chexiao"></i> 返回
+            </a>
+            </if>
+        </span>
+        <span class="r">
+            <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
+                <i class="Hui-iconfont Hui-iconfont-huanyipi"></i>
+            </a>
+        </span>
+    </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+            <thead>
+                <tr class="text-c">
+                    <th>ID</th>
+                    <th>编号</th>
+                    <th>名称</th>
+                    <th width="700">介绍</th>
+                    <th>添加专业</th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist name="data.list" id="v">
+                    <tr class="text-c">
+                        <td>{$v.department_id}</td>
+                        <td>{$v.department_number}</td>
+                        <td ><a href="{:U('Home/Area/area_list',['pid'=>$v['area_id']])}">{$v.department_name}</a></td>
+                        <td >{$v.department_remark}</td>
+                        <td>
+                            <a onClick="openPage(this)" data-href="{:U('Home/profession/add',['id'=>$v['department_id']])}" href="javascript:;" title="添加专业（{$v.department_name}）">
+                                <i class="Hui-iconfont Hui-iconfont-add"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                </volist>
+            </tbody>
+        </table>
+        {$data.page}
+    </div>
+</div>
+<include file="Common/footer" />
+<script>
+    $(function () {
+        $('.area').mouseover(function () {
+            var j = $(this);
+            var id = j.attr('data-id');
+            $.post('{:U("Home/Area/ajax_path_info")}',{id:id},function(e){
+                var str = '';
+                for (var i in e)
+                {
+                    str += e[i].area_name + '/';
+                }
+                str = str.substr(0,str.length-1);
+                //layer.tips(str, j.children());
+                layer.tips(str, j.children(), { tips: [1, '#5a98de'], time: 10000 });
+            })
+        });
+    })
+</script>
+</body>
+</html>

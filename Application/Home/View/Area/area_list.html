@@ -1,0 +1,64 @@
+<include file="Common/header" />
+<style>
+    a{
+        text-decoration:none;
+    }
+</style>
+<body>
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="l">
+            <a class="btn btn-primary" title="添加顶级地区" data-href="{:U('Home/Area/add')}" onclick="openPage(this)" href="javascript:;">
+                <i class="Hui-iconfont Hui-iconfont-add"></i> 添加顶级地区
+            </a>
+            <if condition="$pid">
+            <a class="btn btn-warning" href="javascript:window.history.go(-1);">
+                <i class="Hui-iconfont Hui-iconfont-chexiao"></i> 返回
+            </a>
+            </if>
+        </span>
+        <span class="r">
+            <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
+                <i class="Hui-iconfont Hui-iconfont-huanyipi"></i>
+            </a>
+        </span>
+    </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+            <thead>
+            <tr class="text-c">
+                <th>ID</th>
+                <th>地区名称</th>
+                <th>添加下级地区</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="area_list" id="v">
+            <tr class="text-c">
+                <td>{$v.area_id}</td>
+                <td><a href="{:U('Home/Area/area_list',['pid'=>$v['area_id']])}">{$v.area_name}</a></td>
+                <td class="f-14 td-manage">
+                    <a onClick="openPage(this)" data-href="{:U('Home/Area/add',['id'=>$v['area_id']])}" href="javascript:;" title="添加下级地区">
+                        <i class="Hui-iconfont Hui-iconfont-add"></i>
+                    </a>
+                    <!--<a class="ml-5" onClick="article_edit('资讯编辑','article-add.html','10001')" href="javascript:;" title="编辑">-->
+                        <!--<i class="Hui-iconfont">&#xe6df;</i>-->
+                    <!--</a>-->
+                    <!--<a class="ml-5" onClick="article_del(this,'10001')" href="javascript:;" title="删除">-->
+                        <!--<i class="Hui-iconfont">&#xe6e2;</i>-->
+                    <!--</a>-->
+                </td>
+            </tr>
+            </volist>
+            </tbody>
+        </table>
+    </div>
+</div>
+<include file="Common/footer" />
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/ui/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/static/ui/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/static/ui/lib/laypage/1.2/laypage.js"></script>
+</body>
+</html>
