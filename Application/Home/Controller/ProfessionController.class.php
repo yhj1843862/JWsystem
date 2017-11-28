@@ -8,6 +8,8 @@
  */
 namespace Home\Controller;
 
+use Common\ViewModel\ProfessionViewModel;
+
 class ProfessionController extends BaseController
 {
     public function add()
@@ -55,6 +57,7 @@ class ProfessionController extends BaseController
                 $this->ajaxReturn(['status'=>0, 'info'=>'编号"'.$number.'"已存在']);
             }
 
+
             //将数据插入到数据库
             if($m->add(['profession_name'=>$name, 'profession_number'=>$number, 'department'=>$department_id , 'profession_remark'=>$remark]))
             {
@@ -64,4 +67,30 @@ class ProfessionController extends BaseController
             }
         }
     }
+
+    /**
+     * 专业列表
+     */
+    public function lists()
+    {
+        $did = I('get.id',0);
+        $from = I('get.from',0);
+        $where = [];
+        if (!empty($did))
+        {
+            $where['department'] = $did;
+        }
+        $m = new ProfessionViewModel();
+        $num = 12;
+        $page = I('get.p',1);
+        $list = $m->where($where)->page($page.','.$num)->select();
+        $count      = $m->where($where)->count();
+        $Page       = new \Think\myPage($count,$num);
+        $show       = $Page->show();
+        $this->assign('data', ['list'=>$list, 'page'=>$show]);
+        $this->assign('did', $did);
+        $this->assign('from', $from);
+        $this->display();
+    }
+
 }

@@ -22,12 +22,9 @@
 </style>
 <body>
 <div class="page-container">
-    <div class="cl pd-5 bg-1 bk-gray mt-20">
+    <?php if(empty($from)): ?><div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l">
-            <a class="btn btn-primary" title="添加院系" data-width="1200" data-href="<?php echo U('add');?>" onclick="openPage(this)" href="javascript:;">
-                <i class="Hui-iconfont Hui-iconfont-add"></i> 添加院系
-            </a>
-            <?php if($pid): ?><a class="btn btn-warning" href="javascript:window.history.go(-1);">
+            <?php if($did): ?><a class="btn btn-warning" href="javascript:window.history.go(-1);">
                 <i class="Hui-iconfont Hui-iconfont-chexiao"></i> 返回
             </a><?php endif; ?>
         </span>
@@ -36,7 +33,7 @@
                 <i class="Hui-iconfont Hui-iconfont-huanyipi"></i>
             </a>
         </span>
-    </div>
+    </div><?php endif; ?>
     <div class="mt-20">
         <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
             <thead>
@@ -44,29 +41,28 @@
                 <th>编号</th>
                 <th>名称</th>
                 <th>介绍</th>
-                <th>添加专业</th>
-                <th>下属专业</th>
-                <!--<th>性别</th>-->
-                <!--<th>角色</th>-->
-                <!--<th>地区</th>-->
+                <th>所属院系</th>
+                <th>添加班级</th>
+                <th>班级列表</th>
             </tr>
             </thead>
             <tbody>
             <?php if(is_array($data["list"])): $i = 0; $__LIST__ = $data["list"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?><tr class="text-c">
-                <td><?php echo ($v["department_number"]); ?></td>
-                <td><a href="<?php echo U('');?>"><?php echo ($v["department_name"]); ?></a></td>
-                <td><?php echo ($v["department_remark"]); ?></td>
+                <td><?php echo ($v["profession_number"]); ?></td>
+                <td><a href="<?php echo U('');?>"><?php echo ($v["profession_name"]); ?></a></td>
+                <td><?php echo ($v["profession_remark"]); ?></td>
+                <td><a href="<?php echo U('',['id'=>$v['department_id'],'from'=>$from]);?>"><?php echo ($v["department_name"]); ?></a></td>
                 <td>
-                    <a onClick="openPage(this)" data-href="<?php echo U('Home/profession/add',['id'=>$v['department_id']]);?>" href="javascript:;" title="添加专业（<?php echo ($v["department_name"]); ?>）">
+                    <a onClick="openPage(this)" data-height="400" data-href="<?php echo U('Home/Class/add',['id'=>$v['profession_id']]);?>" href="javascript:;" title="添加班级（<?php echo ($v["department_name"]); ?>/<?php echo ($v["profession_name"]); ?>）">
                         <i class="Hui-iconfont Hui-iconfont-add"></i>
                     </a>
                 </td>
-
                 <td>
-                    <a onClick="openPage(this)" data-width="1200" data-href="<?php echo U('Home/profession/lists',['id'=>$v['department_id'],'from'=>1]);?>" href="javascript:;" title="专业列表（<?php echo ($v["department_name"]); ?>）">
-                        <i class="Hui-iconfont Hui-iconfont-ordered-list"></i>
+                    <a onClick="openPage(this)" data-width="1200" data-href="<?php echo U('Home/Class/class_list',['id'=>$v['profession_id']]);?>" href="javascript:;" title="班级列表（<?php echo ($v["department_name"]); ?>/<?php echo ($v["profession_name"]); ?>）">
+                        <i class="Hui-iconfont Hui-iconfont-list"></i>
                     </a>
                 </td>
+
             </tr><?php endforeach; endif; else: echo "" ;endif; ?>
             </tbody>
         </table>

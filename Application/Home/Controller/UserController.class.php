@@ -41,4 +41,15 @@ class UserController extends BaseController
         $this->assign('page', $data['page']);
         $this->display();
     }
+
+    public function ajax_user_list()
+    {
+        $where = [];
+        $role = I('post.role', 0);
+        $where['role'] = $role;
+        $page = I('post.page',1);
+        $num = I('post.num', 999999);
+        $data = D('User')->user_list($where,$page, $num);
+        $this->ajaxReturn($data);
+    }
 }

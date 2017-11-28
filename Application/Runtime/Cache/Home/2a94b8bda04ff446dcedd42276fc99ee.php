@@ -109,8 +109,7 @@
                 <ul>
                     <li>
                         <a data-href="<?php echo U('Home/Department/lists');?>" data-title="院系列表" href="javascript:void(0)">院系列表</a>
-                        <a data-href="<?php echo U('');?>" data-title="专业管理" href="javascript:void(0)">专业管理</a>
-                        <a data-href="<?php echo U('');?>" data-title="班级管理" href="javascript:void(0)">班级</a>
+                        <a data-href="<?php echo U('Home/profession/lists');?>" data-title="专业管理" href="javascript:void(0)">专业管理</a>
                     </li>
                 </ul>
             </dd>
@@ -151,7 +150,7 @@
     <div id="iframe_box" class="Hui-article">
         <div class="show_iframe">
             <div style="display:none" class="loading"></div>
-            <iframe scrolling="yes" frameborder="0" src="<?php echo U('Home/Index/welcome');?>"></iframe>
+            <iframe scrolling="yes" frameborder="0" src="console.html"></iframe>
         </div>
     </div>
 </section>

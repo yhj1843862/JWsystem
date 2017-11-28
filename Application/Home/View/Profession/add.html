@@ -10,7 +10,7 @@
             <label class="form-label col-xs-4 col-sm-3">
                 <span class="c-red">*</span> 名称：
             </label>
-            <div class="formControls col-xs-4 col-sm-5">
+            <div class="formControls col-xs-6 col-sm-6">
                 <input type="text" class="input-text" id="name" >
             </div>
         </div>
@@ -20,15 +20,15 @@
             <label class="form-label col-xs-4 col-sm-3">
                 <span class="c-red">*</span> 编号：
             </label>
-            <div class="formControls col-xs-4 col-sm-5">
+            <div class="formControls col-xs-6 col-sm-6">
                 <input type="text" class="input-text" id="number" >
             </div>
         </div>
 
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3">院系介绍：</label>
-            <div class="formControls col-xs-4 col-sm-5">
-                <textarea class="textarea" id="remark"  placeholder="院系的介绍...10-255个字符" onKeyUp="countStringLength(this,10,255)"></textarea>
+            <label class="form-label col-xs-4 col-sm-3">专业介绍：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <textarea class="textarea" id="remark"  placeholder="专业的介绍...10-255个字符" onKeyUp="countStringLength(this,10,255)"></textarea>
                 <p class="textarea-numberbar">
                     <em class="textarea-length">0</em>/255
                 </p>
@@ -47,21 +47,21 @@
 <include file="Common/footer"/>
 <script>
     $(function () {
-
+        var department_id = '{$department_id}';
         $('#subBtn').click(function () {
             var number = $('#number').val();
             var name = $('#name').val();
             var remark = $('#remark').val();
             if(remark.length > 255 || remark.length < 10)
             {
-                errorAlert('院系介绍需要10-255个字符');
+                errorAlert('专业介绍需要10-255个字符');
                 return false;
             }
-            $.post('', {n:number, name: name, r:remark}, function (e) {
+            $.post('', {n:number, name: name, r:remark, 'department_id':department_id}, function (e) {
                 if(e.status)
                 {
                     successAlert(e.info);
-                    window.parent.location.reload();
+                    $('#number').val('');$('#name').val('');$('#remark').val('');
                 }else {
                     errorAlert(e.info);
                 }

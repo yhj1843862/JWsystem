@@ -17,9 +17,8 @@ class DepartmentController extends BaseController
      */
     public function lists()
     {
-
         $m = M('Department');
-        $num = 4;
+        $num = 12;
         $page = I('get.p',1);
         $list = $m->order('department_id')->page($page.','.$num)->select();
         $count      = $m->count();
@@ -66,8 +65,9 @@ class DepartmentController extends BaseController
                 $this->ajaxReturn(['status'=>0, 'info'=>'编号"'.$number.'"已存在']);
             }
 
+
             //将数据插入到数据库
-            if($m->order()->add(['department_name'=>$name, 'department_number'=>$number, 'department_remark'=>$remark]))
+            if($m->add(['department_name'=>$name, 'department_number'=>$number, 'department_remark'=>$remark]))
             {
                 $this->ajaxReturn(['status'=>1, 'info'=>'成功']);
             }else{

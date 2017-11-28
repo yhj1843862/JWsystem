@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<include file="Common/header" />
+<style>
+    a{
+        text-decoration:none;
+    }
+</style>
+<body>
+<div class="page-container">
+
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+            <thead>
+            <tr class="text-c">
+                <th>编号</th>
+                <th>名称</th>
+                <th>入学时间</th>
+                <th>毕业时间</th>
+                <th>班级人数</th>
+                <th>辅导员</th>
+                <th>班级人员管理</th>
+                <!--<th>性别</th>-->
+                <!--<th>角色</th>-->
+                <!--<th>地区</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="list" id="v">
+                <tr class="text-c">
+                    <td>{$v.class_number}</td>
+                    <td><a href="{:U('')}">{$v.class_name}</a></td>
+                    <td>{$v.start_time}</td>
+                    <td>{$v.end_time}</td>
+                    <td>{$v.student_num}</td>
+                    <td>{$v.manager}</td>
+                    <td>{$v.student_num}</td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+        {$data.page}
+    </div>
+</div>
+<include file="Common/footer" />
+</body>
+</html>
