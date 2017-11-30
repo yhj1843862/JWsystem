@@ -58,28 +58,35 @@ class UserModel extends Model
 
     protected function check_user_data($data)
     {
-        //检验昵称
-        if(!isset($data['nickname']) || mb_strlen($data['nickname'],'UTF-8') > 10  || mb_strlen($data['nickname'],'UTF-8') < 2 )
-        {
-            $this->err = ['status'=>0, 'info'=>'昵称有误'];
-            return false;
-        }
-        //检验邮箱
-        if(!isset($data['email']) || mb_strlen($data['email'],'UTF-8') > 30  || !check_email($data['email']) )
-        {
-            $this->err = ['status'=>0, 'info'=>'请输入正确的邮箱，且长度小于30'];
-            return false;
-        }
         //编号
         if(!isset($data['number']) || mb_strlen($data['number'],'UTF-8') > 15  || mb_strlen($data['number'],'UTF-8') < 1 )
         {
             $this->err = ['status'=>0, 'info'=>'请输入正确的编号，长度在1-15之间'];
             return false;
         }
+        //检验昵称
+        if(!isset($data['nickname']) || mb_strlen($data['nickname'],'UTF-8') > 10  || mb_strlen($data['nickname'],'UTF-8') < 2 )
+        {
+            $this->err = ['status'=>0, 'info'=>'昵称有误'];
+            return false;
+        }
         //手机号
         if(!isset($data['mobile']) || !check_mobile($data['mobile']) )
         {
             $this->err = ['status'=>0, 'info'=>'请输入正确的手机号'];
+            return false;
+        }
+        //身份证
+        if(!isset($data['id_card']) || !id_card_available($data['id_card']))
+        {
+            $this->err = ['status'=>0, 'info'=>'身份证号有误'];
+            return false;
+        }
+
+        //检验邮箱
+        if(!isset($data['email']) || mb_strlen($data['email'],'UTF-8') > 30  || !check_email($data['email']) )
+        {
+            $this->err = ['status'=>0, 'info'=>'请输入正确的邮箱，且长度小于30'];
             return false;
         }
         //角色信息
@@ -94,11 +101,7 @@ class UserModel extends Model
             $this->err = ['status'=>0, 'info'=>'地区信息有误'];
             return false;
         }
-        if(!isset($data['id_card']) || !id_card_available($data['id_card']))
-        {
-            $this->err = ['status'=>0, 'info'=>'身份证号有误'];
-            return false;
-        }
+
         //自动完成一些东西
         $data['sex'] = get_sex_by_id_card($data['id_card']);
         return $data;
