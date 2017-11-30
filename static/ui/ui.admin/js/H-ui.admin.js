@@ -49,13 +49,20 @@ function getskincookie(){
 	}
 }
 /*菜单导航*/
-function Hui_admin_tab(obj){
+function Hui_admin_tab(obj,level){
 	var bStop = false,
 		bStopIndex = 0,
 		href = $(obj).attr('data-href'),
-		title = $(obj).attr("data-title"),
-		topWindow = $(window.parent.document),
-		show_navLi = topWindow.find("#min_title_list li"),
+		title = $(obj).attr("data-title");
+    level = level ? parseInt(level) : 1;
+	if(level == 2)
+	{
+        var topWindow = $(window.parent.parent.document);
+	}else {
+        var topWindow = $(window.parent.document)
+	}
+
+	var show_navLi = topWindow.find("#min_title_list li"),
 		iframe_box = topWindow.find("#iframe_box");
 	//console.log(topWindow);
 	if(!href||href==""){
@@ -77,8 +84,8 @@ function Hui_admin_tab(obj){
 		}
 	});
 	if(!bStop){
-		creatIframe(href,title);
-		min_titleList();
+		creatIframe(href,title,level);
+		min_titleList(level);
 	}
 	else{
 		show_navLi.removeClass("active").eq(bStopIndex).addClass("active");			
@@ -87,16 +94,28 @@ function Hui_admin_tab(obj){
 }
 
 /*最新tab标题栏列表*/
-function min_titleList(){
-	var topWindow = $(window.parent.document),
-		show_nav = topWindow.find("#min_title_list"),
+function min_titleList(level){
+    level = level ? parseInt(level) : 1;
+    if(level == 2)
+    {
+        var topWindow = $(window.parent.parent.document);
+    }else {
+        var topWindow = $(window.parent.document)
+    }
+	var show_nav = topWindow.find("#min_title_list"),
 		aLi = show_nav.find("li");
 }
 
 /*创建iframe*/
-function creatIframe(href,titleName){
-	var topWindow=$(window.parent.document),
-		show_nav=topWindow.find('#min_title_list'),
+function creatIframe(href,titleName,level){
+    level = level ? parseInt(level) : 1;
+    if(level == 2)
+    {
+        var topWindow = $(window.parent.parent.document);
+    }else {
+        var topWindow = $(window.parent.document)
+    }
+	var show_nav=topWindow.find('#min_title_list'),
 		iframe_box=topWindow.find('#iframe_box'),
 		iframeBox=iframe_box.find('.show_iframe'),
 		$tabNav = topWindow.find(".acrossTab"),

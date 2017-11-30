@@ -86,8 +86,13 @@ class ClassController extends BaseController
     public function class_list()
     {
         $profession_id = I('get.id',0);
-        $list = M('class')->where(['profession'=>$profession_id])->select();
-        $this->assign('list', $list);
+        $page = I('get.p', 1);
+        $result = D('Class')->class_list(['profession'=>$profession_id],$page,10);
+        if(!$result['status'])
+        {
+            $this->error($result['info']);
+        }
+        $this->assign('data', $result['data']);
         $this->display();
     }
 }

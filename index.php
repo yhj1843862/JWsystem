@@ -24,3 +24,8 @@ define('APP_PATH','./Application/');
 require './ThinkPHP/ThinkPHP.php';
 
 // 亲^_^ 后面不需要任何代码了 就是如此简单
+
+//引入PHPexcel类库
+vendor('PHPExcel.PHPExcel');
+
+

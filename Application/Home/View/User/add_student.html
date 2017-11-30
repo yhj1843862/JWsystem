@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html>
+<include file="Common/header"/>
+<body>
+<article class="page-container">
+    <form action="" method="post" class="form form-horizontal" id="form-member-add">
+
+        <div class="row cl">
+
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>编号：
+            </label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <input type="text" class="input-text" id="number" >
+            </div>
+        </div>
+
+        <div class="row cl">
+
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>昵称：
+            </label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <input type="text" class="input-text" id="nickname">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>手机号：
+            </label>
+
+            <div class="formControls col-xs-6 col-sm-6">
+                <input type="text" class="input-text" id="mobile">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>身份证号：
+            </label>
+
+            <div class="formControls col-xs-6 col-sm-6">
+                <input type="text" class="input-text" id="id_card">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>邮箱：
+            </label>
+
+            <div class="formControls col-xs-6 col-sm-6">
+                <input type="text" class="input-text" id="email">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>院系：
+            </label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <span class="select-box">
+                    <select class="select" id="depart">
+                        <option value="0" selected>请选择院系</option>
+                        <volist name="d_list" id="v">
+                        <option value="{$v.department_id}">{$v.department_name}</option>
+                        </volist>
+                    </select>
+				</span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>专业：
+            </label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <span class="select-box">
+                    <select class="select" id="profess">
+                        <option value="0" selected>请选择专业</option>
+                    </select>
+				</span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>班级：
+            </label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <span class="select-box">
+                    <select class="select" id="class">
+                        <option value="0" selected>请选择班级</option>
+                    </select>
+				</span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">籍贯：</label>
+            <div class="formControls col-xs-2">
+                <span class="select-box">
+                    <select class="select area" size="1">
+                        <option value="0" selected>选择城市</option>
+                        <volist name="area_list" id="v">
+                        <option value="{$v.area_id}">{$v.area_name}</option>
+                        </volist>
+                    </select>
+				</span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-6 col-sm-6 col-xs-offset-4 col-sm-offset-3">
+                <button id="subBtn" class="btn btn-primary noradius" type="button">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
+            </div>
+        </div>
+
+    </form>
+</article>
+
+<include file="Common/footer"/>
+<script>
+    $(function () {
+        //获取地区信息的处理
+        get_area('area');
+
+        $('#depart').change(function () {
+            //获取对应院系下的专业
+            var did = $(this).val();
+            $.post('{:U("Department/ajax_profession_list_html")}',{id:did},function (e) {
+                $('#profess').html('<option value="0" selected>请选择专业</option>'+e);
+            })
+
+        });
+
+        $('#profess').change(function () {
+            //获取专业下的班级信息
+            var pid = $(this).val();
+            $.post('{:U("Profession/ajax_class_list")}',{pid:pid},function (e) {
+                $('#class').html('<option value="0" selected>请选择班级</option>'+e);
+            })
+
+        });
+
+        $('#subBtn').click(function () {
+            var areas = document.getElementsByClassName('area');
+            var area = parseInt(areas[areas.length-1].value);
+            if(area == 0)
+            {
+                errorAlert('请选择正确的地区',2000);
+                return false;
+            }
+            var nickname = $('#nickname').val();
+            var number = $('#number').val();
+            var email = $('#email').val();
+            var id_card = $('#id_card').val();
+            var mobile = $('#mobile').val();
+            var depart = $('#depart').val();
+            var profess = $('#profess').val();
+            var class_id = $('#class').val();
+
+            $.post('',{nickname:nickname,department:depart,profession:profess,class:class_id,email:email,id_card:id_card,mobile:mobile,area:area,number:number},function (e) {
+                if(e.status)
+                {
+                    window.parent.location.reload();
+                }else {
+                    errorAlert(e.info);
+                }
+            })
+
+
+        });
+
+    });
+
+    function get_area(domId) {
+        $(document).on('change','.'+domId,function(){
+            var t = $(this);
+            t.parent().parent().nextAll().remove();
+            var id = parseInt(t.val());
+            if(id == 0)
+            {
+                return false;
+            }
+            $.post('{:U("Home/Area/ajax_area_list")}',{pid:id},function (e) {
+                if(e.length)
+                {
+                    var tmp = '<div class="formControls col-xs-2">' +
+                        '                <span class="select-box">' +
+                        '                    <select class="select area" size="1">' +
+                        '                        <option value="0" selected>请选择地区</option>';
+                    for (var i in e)
+                    {
+                        var j = e[i];
+                        tmp += '<option value="'+j.area_id+'">'+j.area_name+'</option>';
+                    }
+                    tmp += '</select></span></div>';
+                    t.parent().parent().after(tmp);
+                }
+            })
+
+        });
+    }
+</script>
+</body>
+</html>

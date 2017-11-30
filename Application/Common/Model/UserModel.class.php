@@ -122,6 +122,7 @@ class UserModel extends Model
         $Page       = new \Think\myPage($count,$num);
         $show       = $Page->show();
         return ['list'=>$list, 'page'=>$show];
+
     }
 
 

@@ -145,3 +145,45 @@ function hide_id_card($id_card,$start=12,$num=6, $str='*')
     }
     return substr($id_card,0,$start).$tmp.substr($id_card,$start+$num);
 }
+
+function format_where($where)
+{
+    if(!is_array($where))
+    {
+        return false;
+    }
+    $whereString = ' WHERE 1 ';
+    foreach ($where as $k=>$v)
+    {
+        if(!is_array($v))
+        {
+            $whereString .= ' AND `'.$k.'`="'.$v.'"';
+        }else{
+            if(is_array($v[0]))
+            {
+                foreach ($v as $vv)
+                {
+                    $whereString .= ' AND '.$k.$vv[0].'"'.$vv[1].'"';
+                }
+            }else{
+                if(is_array($v[1]))
+                {
+                    $whereString .= ' AND (';
+                    foreach ($v[1] as $kk=>$vv)
+                    {
+                        $whereString .= ' `'.$k.'`="'.$vv.'" '.$v[0];
+                    }
+                    $whereString = rtrim($whereString, $v[0]) .')';
+                }else{
+                    if(strpos( $v[1],','))
+                    {
+                        $whereString .= ' AND `'.$k.'` '.$v[0].' ('.$v[1].')';
+                    }else {
+                        $whereString .= ' AND `'.$k.'` '.$v[0].' ("'.$v[1].'")';
+                    }
+                }
+            }
+        }
+    }
+    return $whereString;
+}

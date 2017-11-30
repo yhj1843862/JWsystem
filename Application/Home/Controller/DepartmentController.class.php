@@ -73,13 +73,51 @@ class DepartmentController extends BaseController
             }else{
                 $this->ajaxReturn(['status'=>0, 'info'=>'失败']);
             }
-
         }
-
         if(IS_GET)
         {
             $this->display();
         }
+    }
+
+    public function ajax_profession_list()
+    {
+        if(IS_POST)
+        {
+            //获取某个院系下的专业列表
+            $depart = I('post.id',0);
+            $num = I('post.num',999999);
+            $page = I('post.p',1);
+            $_GET['p'] = $page;
+            $where['department'] = $depart;
+            $this->ajaxReturn($this->profession_list($where,$page,$num));
+        }
+    }
+
+    protected function profession_list($where,$page,$num)
+    {
+        $m = new \Common\ViewModel\ProfessionViewModel();
+        $list = $m->where($where)->page($page.','.$num)->select();
+        $count      = $m->where($where)->count();
+        $Page       = new \Think\myPage($count,$num);
+        $show       = $Page->show();
+        return ['list'=>$list,'page'=>$show];
+    }
+
+    public function ajax_profession_list_html()
+    {
+        $depart = I('post.id',0);
+        $num = I('post.num',999999);
+        $page = I('post.p',1);
+        $_GET['p'] = $page;
+        $where['department'] = $depart;
+        $data = $this->profession_list($where,$page,$num);
+        $str = '';
+        foreach ($data['list'] as $k=>$v)
+        {
+            $str .= '<option value="'.$v['profession_id'].'">'.$v['profession_name'].'</option>';
+        }
+        $this->ajaxReturn($str);
     }
 
 }

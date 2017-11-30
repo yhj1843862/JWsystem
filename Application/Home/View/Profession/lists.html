@@ -47,9 +47,7 @@
                     </a>
                 </td>
                 <td>
-                    <a onClick="openPage(this)" data-width="1200" data-href="{:U('Home/Class/class_list',['id'=>$v['profession_id']])}" href="javascript:;" title="班级列表（{$v.department_name}/{$v.profession_name}）">
-                        <i class="Hui-iconfont Hui-iconfont-list"></i>
-                    </a>
+                    <a data-href="{:U('Home/Class/class_list',['id'=>$v['profession_id']])}" data-title="班级列表（{$v.department_name}/{$v.profession_name}）" onClick="Hui_admin_tab(this,2)"><i class="Hui-iconfont Hui-iconfont-list"></i></a>
                 </td>
 
             </tr>

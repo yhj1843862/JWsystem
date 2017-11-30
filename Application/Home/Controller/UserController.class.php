@@ -20,7 +20,7 @@ class UserController extends BaseController
         if(IS_GET)
         {
             //读取角色列表
-            $role_list = M('role')->select();
+            $role_list = M('role')->where(['role_id'=>['neq',1]])->select();
             $this->assign('role_list', $role_list);
             //读取地区列表
             $area_list = M('Area')->where(['parent_id'=>0])->select();
@@ -29,10 +29,44 @@ class UserController extends BaseController
         }
     }
 
+    public function add_student()
+    {
+        if(IS_GET)
+        {
+            //读取院系列表
+            $this->assign('d_list',M('department')->select());
+            //读取地区列表
+            $area_list = M('Area')->where(['parent_id'=>0])->select();
+            $this->assign('area_list', $area_list);
+            $this->display();
+        }
+
+        if(IS_POST)
+        {
+            $data = I('post.');
+            if(!isset($data['department']) || empty($data['department']))
+            {
+                $this->ajaxReturn(['status'=>0, 'info'=>'请选择正确的院系信息']);
+            }
+
+            if(!isset($data['profession']) || empty($data['profession']))
+            {
+                $this->ajaxReturn(['status'=>0, 'info'=>'请选择正确的专业信息']);
+            }
+
+            if(!isset($data['class']) || empty($data['class']))
+            {
+                $this->ajaxReturn(['status'=>0, 'info'=>'请选择正确的班级信息']);
+            }
+            $data['role'] = 1;
+            $this->ajaxReturn(D('User')->add_user($data));
+        }
+    }
+
     public function user_list()
     {
         //$data = D('User')->user_list([], I('get.p'), 2);
-        $data = D('User')->user_list2(I('get.p',1), 2);
+        $data = D('User')->user_list2(I('get.p',1), 12);
         foreach ($data['list'] as $k=>$v)
         {
             $data['list'][$k]['id_card'] = hide_id_card($v['id_card']);

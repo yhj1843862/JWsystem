@@ -93,4 +93,23 @@ class ProfessionController extends BaseController
         $this->display();
     }
 
+    public function ajax_class_list()
+    {
+        //获取某个专业下的班级列表
+        $profession = I('post.pid',0);
+        $data = D('Class')->class_list(['profession'=>$profession],1,999999);
+        if($data['status'])
+        {
+            $str = '';
+            foreach ($data['data']['list'] as $k=>$v)
+            {
+                $str .= '<option value="'.$v['class_id'].'">'.$v['class_name'].'</option>';
+            }
+            $this->ajaxReturn($str);
+        }else{
+            $this->ajaxReturn('');
+        }
+
+    }
+
 }
