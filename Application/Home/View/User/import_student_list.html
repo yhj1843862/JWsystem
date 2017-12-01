@@ -16,6 +16,7 @@
                 <th>手机号</th>
                 <th>身份证号</th>
                 <th>地区</th>
+                <th width="150">导入结果</th>
             </tr>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@
                 <td>{$v.mobile}</td>
                 <td>{$v.id_card}</td>
                 <td data-id="{$v.area}" class="area"><span>{$v.area}</span></td>
+                <td id="{$v.number}" class="result"></td>
             </tr>
             </volist>
             </tbody>
@@ -45,7 +47,15 @@
             return false;
         }
         $.post('{:U("Home/User/import_student_handler")}',{cid:cid},function (e) {
-
+            var l = e.length;
+            $('.result').html('<i class="Hui-iconfont Hui-iconfont-xuanze"></i>').css('color','green');
+            if(l)
+            {
+                for (var i in e)
+                {
+                    $('#'+e[i].code).html(e[i].info).css('color','red');
+                }
+            }
 
         })
     });

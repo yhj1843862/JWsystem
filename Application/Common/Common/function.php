@@ -188,7 +188,6 @@ function format_where($where)
     return $whereString;
 }
 
-
 /**
  * @param $excel_path excel文件路径
  * @param int $start_row 从第几行开始读取数据
@@ -223,20 +222,20 @@ function read_excel($excel_path,$start_row = 1, array $fields)
             $s = $i-$start_row;
             for ($j=1; $j<=$column; $j++)
             {
-                echo my_chr($j),'<br>';
                 //获取每一个方格对象
                 $cell = $v->getCell(my_chr($j).$i);
                 //读取方格里面的内容
                 $value = $cell->getValue();
                 if(!empty($value))
                 {
-                    $field = $fields[$j-65];
+                    $field = $fields[$j-1];
                     if(empty($field))
                     {
                         $data[$k][$s][] = $value;
                     }else{
                         $data[$k][$s][$field] = $value;
                     }
+
                 }
             }
         }

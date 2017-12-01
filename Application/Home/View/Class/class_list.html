@@ -43,7 +43,7 @@
                 <td>{$v.student_num}</td>
                 <td>{$v.nickname} ( {$v.mobile} )</td>
                 <td>
-                    <a onClick="openPage(this)" data-width="1200" data-height="500" data-href="{:U('Home/Class/class_list',['id'=>$v['profession_id']])}" href="javascript:;" title="学生列表 （{$v.class_name}）">
+                    <a onClick="openPage(this)" data-width="1200" data-height="500" data-href="{:U('Home/Class/class_student_list',['id'=>$v['class_id']])}" href="javascript:;" title="学生列表 （{$v.class_name}）">
                     <i class="Hui-iconfont Hui-iconfont-list"></i>
                     </a>
                     <a onClick="openPage(this)" data-width="1200" data-height="600" data-href="{:U('Home/User/import_student',['id'=>$v['class_id']])}" href="javascript:;" title="导入学生信息 （{$v.class_name}）">

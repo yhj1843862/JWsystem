@@ -95,4 +95,20 @@ class ClassController extends BaseController
         $this->assign('data', $result['data']);
         $this->display();
     }
+
+    /**
+     * 某个班级下的学生列表
+     */
+    public function class_student_list()
+    {
+        $page = I('get.p',1);
+        $data = D('User')->user_list(['class'=>I('get.id',0)], $page, 10);
+        foreach ($data['list'] as $k=>$v)
+        {
+            $data['list'][$k]['id_card'] = hide_id_card($v['id_card']);
+        }
+        $this->assign('user_list', $data['list']);
+        $this->assign('page', $data['page']);
+        $this->display();
+    }
 }

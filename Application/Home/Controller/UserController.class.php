@@ -46,7 +46,7 @@ class UserController extends BaseController
             $data = I('post.');
             if(!isset($data['department']) || empty($data['department']))
             {
-                $this->ajaxReturn(['status'=>0, 'info'=>'请选择正确的院系信息']);
+            $this->ajaxReturn(['status'=>0, 'info'=>'请选择正确的院系信息']);
             }
 
             if(!isset($data['profession']) || empty($data['profession']))
@@ -65,6 +65,9 @@ class UserController extends BaseController
     }
 
 
+    /**
+     * 从excel中导入学生信息
+     */
     public function import_student()
     {
         if(IS_POST)
@@ -88,7 +91,11 @@ class UserController extends BaseController
                 // 上传成功 获取上传文件信息
                 $file = $root.$info['xls']['savepath'].$info['xls']['savename'];
                 $data = read_excel($file,2,['number','nickname','id_card','mobile','email','area']);
+                //将读出的数据先放入session中，临时存放
                 session('import_student_'.$class_id, $data);
+                //删除上传的文件
+                unlink($file);
+                //在数据入库前给用户预览一下要导入的数据
                 $this->assign('user_list',$data);
                 $this->assign('class_id',$class_id);
                 $this->display('import_student_list');
@@ -103,19 +110,58 @@ class UserController extends BaseController
         }
     }
 
+    /**
+     * 确认导入用户操作，就是入库
+     */
     public function import_student_handler()
     {
         $cid = I('post.cid',0);
+        $class_info = D('Class')->class_info($cid);
         //从session中读取数据
         $data = session('import_student_'.$cid);
+        $errors = [];
+        //循环的将用户插入到数据库中
         foreach ($data as $k=>$v)
         {
-            $v['area'];
+            //处理籍贯问题的（将用户写的汉字籍贯转成数据库里面的地区信息）
+            $a = explode('/',$v['area']);
+            if(count($a) == 3)
+            {
+                $a[1] = $a[2];
+            }
+            $tmp = D('Area')->posterity(['area_name'=>$a[0],'parent_id'=>0],true);
+            foreach ($tmp['list'] as $vv)
+            {
+                    if($a[1] == $vv['area_name'])
+                    {
+                        $v['area'] = $vv['area_id'];
+                        //只要找到正确的，就直接退出循环
+                        break;
+                    }else{
+                    //数据库中没有地区信息的情况
+                    $errors[] = ['code'=>$v['number'],'info'=>'籍贯信息有误'];
+                }
+            }
+
+            //组合用户的信息
+            $v['department'] = $class_info['department'];
+            $v['profession'] = $class_info['profession'];
+            $v['class'] = $cid;
+            //将该条信息插入到数据库中
+            $res = D('User')->add_student($v);
+            if(!$res['status'])
+            {
+                $errors[] = ['code'=>$v['number'],'info'=>$res['info']];
+            }
         }
+        //清空防在session中的临时数据
+        session('import_student_'.$cid,null);
+        $this->ajaxReturn($errors);
     }
 
     public function user_list()
     {
+
         //$data = D('User')->user_list([], I('get.p'), 2);
         $data = D('User')->user_list2(I('get.p',1), 12);
         foreach ($data['list'] as $k=>$v)

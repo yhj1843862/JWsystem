@@ -15,24 +15,8 @@ class AreaController extends BaseController
         {
             $name = I('post.name','');
             $pid = I('post.pid',0);
-            //检验数据是否符合规范
-            if(mb_strlen($name,'UTF-8') < 2 || mb_strlen($name,'UTF-8') > 20)
-            {
-                $this->ajaxReturn(['status'=>0, 'info'=>'地区名称长度应该在2-20之间']);
-            }
-            //验证地区是否重复
-            if(M('Area')->where(['area_name'=>$name, 'parent_id'=>$pid])->find())
-            {
-                //有重名
-                $this->ajaxReturn(['status'=>0, 'info'=>'该地区已存在']);
-            }
             //将数据插入到数据库
-            if(M('Area')->add(['area_name'=>$name,'parent_id'=>$pid])){
-                $this->ajaxReturn(['status'=>1, 'info'=>'成功']);
-            }else{
-                $this->ajaxReturn(['status'=>0, 'info'=>'失败']);
-            }
-            //$this->ajaxReturn($arr);
+            $this->ajaxReturn(D('Area')->add_area($name, $pid));
         }
 
         if(IS_GET)
