@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<include file="Common/header"/>
+<body>
+<article class="page-container">
+    <form action="" method="post" class="form form-horizontal" enctype="multipart/form-data" id="form-member-add">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">附件：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <span class="btn-upload form-group">
+				<input class="input-text upload-url" type="text" name="uploadfile" readonly nullmsg="请添加附件！" style="width:400px">
+				<a href="javascript:void(0);" class="btn btn-primary upload-btn">
+                    <i class="Hui-iconfont">&#xe642;</i> 浏览文件
+                </a>
+				<input type="file" multiple name="xls" class="input-file">
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-4 col-sm-5 col-xs-offset-4 col-sm-offset-3">
+                <input type="hidden" name="class_id" value="{$class_id}">
+                <button id="subBtn" class="btn btn-primary noradius" type="submit">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
+            </div>
+        </div>
+
+    </form>
+</article>
+<include file="Common/footer"/>
+</body>
+</html>

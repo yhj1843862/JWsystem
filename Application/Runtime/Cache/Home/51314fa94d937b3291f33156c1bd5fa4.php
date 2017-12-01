@@ -134,6 +134,7 @@
             var mobile = $('#mobile').val();
 
             $.post('',{nickname:nickname,email:email,id_card:id_card,mobile:mobile,role:role,area:area,number:number},function (e) {
+               
                 if(e.status)
                 {
                     window.location.reload();

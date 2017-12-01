@@ -187,3 +187,108 @@ function format_where($where)
     }
     return $whereString;
 }
+
+
+/**
+ * @param $excel_path excel文件路径
+ * @param int $start_row 从第几行开始读取数据
+ * @param array $fields 每个列对应的字段
+ * @return array|bool|mixed
+ */
+function read_excel($excel_path,$start_row = 1, array $fields)
+{
+    vendor('PHPExcel.PHPExcel');
+    $PHPReader = new PHPExcel_Reader_Excel2007();
+    if(!$PHPReader->canRead($excel_path))
+    {
+        //刚开始尝试使用高版本的读取，如果不能读，则尝试使用低版本格式的读取
+        $PHPReader = new PHPExcel_Reader_Excel5();
+        if(!$PHPReader->canRead($excel_path))
+        {
+            return false;
+        }
+    }
+    //加载excel文件
+    $e = $PHPReader->load($excel_path);
+    //获取所有工作表
+    $sheets = $e->getAllSheets();
+    $data = [];
+    //遍历所有工作表
+    foreach ($sheets as $k=>$v)
+    {
+        $rowNum = $v->getHighestRow();
+        $column = my_ord($v->getHighestColumn());
+        for ($i = $start_row; $i <= $rowNum; $i++)
+        {
+            $s = $i-$start_row;
+            for ($j=1; $j<=$column; $j++)
+            {
+                echo my_chr($j),'<br>';
+                //获取每一个方格对象
+                $cell = $v->getCell(my_chr($j).$i);
+                //读取方格里面的内容
+                $value = $cell->getValue();
+                if(!empty($value))
+                {
+                    $field = $fields[$j-65];
+                    if(empty($field))
+                    {
+                        $data[$k][$s][] = $value;
+                    }else{
+                        $data[$k][$s][$field] = $value;
+                    }
+                }
+            }
+        }
+    }
+    if(count($data) == 1)
+    {
+        return $data[0];
+    }
+    return $data;
+}
+
+/**
+ * 将最多两位字母转成数字（根据ascii码）
+ * 比如：A 转成 1 , AB 转成 28 DF 转成110
+ * @param $str
+ * @return int
+ */
+function my_ord($str)
+{
+    if(strlen($str) == 1)
+    {
+        $str = '@'.$str;
+    }
+    $str = strtoupper($str);
+    $column = (ord($str{0}) - 64 ) * 26 + ord($str{1}) - 64;
+    return $column;
+}
+
+/**
+ * 将数字转成字母，最大支持到702（根据ascii码），是my_ord()的相反操作
+ * @param $num
+ * @return bool|string
+ */
+function my_chr($num)
+{
+    if(empty($num))
+    {
+        return false;
+    }
+    $first_num = floor($num / 26);
+    $second_num = $num % 26;
+    if($second_num == 0)
+    {
+        $first_num = $first_num - 1;
+        $second_num = 26;
+    }
+    $first = chr($first_num + 64);
+    $second = chr($second_num + 64);
+    if($first == '@')
+    {
+        return $second;
+    }else{
+        return $first.$second;
+    }
+}

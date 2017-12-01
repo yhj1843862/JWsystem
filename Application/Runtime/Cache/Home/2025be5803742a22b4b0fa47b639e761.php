@@ -1,6 +1,22 @@
-<!DOCTYPE HTML>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE HTML>
 <html>
-<include file="Common/header"/>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <link rel="stylesheet" type="text/css" href="/20171127//static/ui/ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/20171127//static/ui/ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="/20171127//static/ui/lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/20171127//static/ui/ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="/20171127//static/ui/ui.admin/css/style.css" />
+    
+    <title><?php echo ($page_title); ?></title>
+    <meta name="keywords" content="网站后台管理系统">
+    <meta name="description" content="轻量级扁平化网站后台管理系统，适合中小型CMS后台系统。">
+</head>
 <body>
 <article class="page-container">
     <form action="" method="post" class="form form-horizontal" id="form-member-add">
@@ -29,9 +45,7 @@
                 <span class="select-box">
                     <select class="select" size="1" id="role">
                         <option value="0" selected>请选择角色</option>
-                        <volist name="role_list" id="v">
-                        <option value="{$v.role_id}">{$v.role_name}</option>
-                        </volist>
+                        <?php if(is_array($role_list)): $i = 0; $__LIST__ = $role_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?><option value="<?php echo ($v["role_id"]); ?>"><?php echo ($v["role_name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                     </select>
 				</span>
             </div>
@@ -62,14 +76,17 @@
     </form>
 </article>
 
-<include file="Common/footer"/>
+<script type="text/javascript" src="/20171127//static/ui/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/20171127//static/ui/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/20171127//static/ui/ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/20171127//static/ui/ui.admin/js/H-ui.admin.js"></script>
 <script type="text/javascript" src="/static/ui/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script>
     $(function () {
 
         $('#role').change(function () {
             var role = $(this).val();
-            $.post("{:U('Home/User/ajax_user_list')}", {role:role}, function (e) {
+            $.post("<?php echo U('Home/User/ajax_user_list');?>", {role:role}, function (e) {
                 var d = e.list;
                 if (d.length)
                 {
@@ -89,7 +106,7 @@
 
 
 
-        var profession_id = "{$profession_id}";
+        var profession_id = "<?php echo ($profession_id); ?>";
 
         $('#subBtn').click(function () {
             var number = $('#number').val();

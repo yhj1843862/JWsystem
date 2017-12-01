@@ -1,0 +1,54 @@
+<include file="Common/header" />
+<style>
+    a{
+        text-decoration:none;
+    }
+</style>
+<body>
+<div class="page-container">
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+            <thead>
+            <tr class="text-c">
+                <th>编号</th>
+                <th>姓名</th>
+                <th>邮箱</th>
+                <th>手机号</th>
+                <th>身份证号</th>
+                <th>地区</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="user_list" id="v">
+            <tr class="text-c">
+                <td>{$v.number}</td>
+                <td><a href="">{$v.nickname}</a></td>
+                <td>{$v.email}</td>
+                <td>{$v.mobile}</td>
+                <td>{$v.id_card}</td>
+                <td data-id="{$v.area}" class="area"><span>{$v.area}</span></td>
+            </tr>
+            </volist>
+            </tbody>
+        </table>
+        <input type="hidden" value="{$class_id}" id="cid">
+        <button id="subBtn" class="btn btn-primary noradius mt-10" type="button">&nbsp;&nbsp;确认导入&nbsp;&nbsp;</button>
+    </div>
+</div>
+<include file="Common/footer" />
+<script>
+    $('#subBtn').click(function () {
+        var cid = parseInt($('#cid').val());
+        if(!cid)
+        {
+            errorAlert('班级信息不全');
+            return false;
+        }
+        $.post('{:U("Home/User/import_student_handler")}',{cid:cid},function (e) {
+
+
+        })
+    });
+</script>
+</body>
+</html>

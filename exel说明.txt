@@ -1,0 +1,50 @@
+////引入PHPexcel类库
+//vendor('PHPExcel.PHPExcel');
+//$excelFile = './3.xlsx';
+////获取一个读取excel的对象
+//$PHPReader = new PHPExcel_Reader_Excel2007();
+//if(!$PHPReader->canRead($excelFile))
+//{
+//    //刚开始尝试使用高版本的读取，如果不能读，则尝试使用低版本格式的读取
+//    $PHPReader = new PHPExcel_Reader_Excel5();
+//    if(!$PHPReader->canRead($excelFile))
+//    {
+//        echo '你傻不傻';
+//        return false;
+//    }
+//}
+////加载excel文件
+//$e = $PHPReader->load($excelFile);
+////$sheet = $e->getSheet(0);
+////获取所有工作表
+//$sheets = $e->getAllSheets();
+//$data = [];
+////遍历所有工作表
+//foreach ($sheets as $k=>$v)
+//{
+//    //获取当前工作表的最大行号
+//    //print_r($v->getHighestRow());
+//    //获取当前工作表的最大列号
+//    //print_r($v->getHighestColumn());
+//    //获取一个小方格对象
+//    //print_r($v->getCell('A1'));
+//    //从小方格对象中读取内容
+//    //print_r($v->getCell('A1')->getValue());
+//
+//    $rowNum = $v->getHighestRow();
+//    $column = ord($v->getHighestColumn());
+//    for ($i = 1; $i <= $rowNum; $i++)
+//    {
+//        for ($j=65; $j<=$column; $j++)
+//        {
+//            //获取每一个方格对象
+//            $cell = $v->getCell(chr($j).$i);
+//            //读取方格里面的内容
+//            $value = $cell->getValue();
+//            if(!empty($value))
+//            {
+//                $data[$k][$i][] = $value;
+//            }
+//        }
+//    }
+//}

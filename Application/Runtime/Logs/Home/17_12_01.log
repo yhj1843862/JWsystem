@@ -1,0 +1,113 @@
+[ 2017-12-01T11:04:10+08:00 ] 127.0.0.1 /20171127/index.php
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000402s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000282s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000306s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000026s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000060s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.046040s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.046068s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000319s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000343s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000491s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000521s ]
+
+[ 2017-12-01T11:04:10+08:00 ] 127.0.0.1 /20171127/index.php/Home/Index/welcome.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000173s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000226s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000252s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000042s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000131s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.022811s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.022861s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000260s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000305s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000634s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000669s ]
+
+[ 2017-12-01T11:04:13+08:00 ] 127.0.0.1 /20171127/index.php/Home/profession/lists.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000188s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000213s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000237s ]
+SQL: SHOW COLUMNS FROM `jw_department` [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `jw_profession` [ RunTime:0.0003s ]
+SQL: SELECT Department.department_id AS department_id,Department.department_number AS department_number,Department.department_name AS department_name,Department.department_remark AS department_remark,Profession.profession_id AS profession_id,Profession.department AS department,Profession.profession_number AS profession_number,Profession.profession_name AS profession_name,Profession.profession_remark AS profession_remark FROM jw_department Department  JOIN jw_profession Profession ON Profession.department=Department.Department_id LIMIT 0,12   [ RunTime:0.0003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM jw_department Department  JOIN jw_profession Profession ON Profession.department=Department.Department_id LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000025s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000048s ]
+NOTIC: [8] Undefined variable: page_title /Users/qingyun/php/mvc/20171127/Application/Runtime/Cache/Home/6b21d545785f0aad38e92fe177583d7f.php 第 15 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.004750s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004776s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000084s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000104s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000241s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000264s ]
+
+[ 2017-12-01T11:04:15+08:00 ] 127.0.0.1 /20171127/index.php/Home/Class/class_list/id/1.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000182s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000228s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000254s ]
+SQL: SHOW COLUMNS FROM `jw_class` [ RunTime:0.0004s ]
+SQL: SELECT * FROM (SELECT * FROM jw_class  WHERE 1  AND `profession`="1" ORDER BY end_time DESC LIMIT 0,10) AS A LEFT JOIN (SELECT `user_id`,`nickname`,`mobile`,`email`,`number`,`sex` FROM jw_user WHERE role=3) AS B ON B.`user_id`=A.`manager` [ RunTime:0.0004s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `jw_class` WHERE `profession` = 1 LIMIT 1   [ RunTime:0.0003s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000022s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000050s ]
+NOTIC: [8] Undefined variable: page_title /Users/qingyun/php/mvc/20171127/Application/Runtime/Cache/Home/245c79e7490f4d6c8027ef833bc70304.php 第 14 行.
+NOTIC: [8] Undefined variable: did /Users/qingyun/php/mvc/20171127/Application/Runtime/Cache/Home/245c79e7490f4d6c8027ef833bc70304.php 第 27 行.
+NOTIC: [8] Undefined index: profession_id /Users/qingyun/php/mvc/20171127/Application/Runtime/Cache/Home/245c79e7490f4d6c8027ef833bc70304.php 第 59 行.
+NOTIC: [8] Undefined index: profession_id /Users/qingyun/php/mvc/20171127/Application/Runtime/Cache/Home/245c79e7490f4d6c8027ef833bc70304.php 第 59 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.004874s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004907s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000083s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000102s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000224s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000246s ]
+
+[ 2017-12-01T11:04:23+08:00 ] 127.0.0.1 /20171127/index.php/Home/User/import_student/id/2.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000018s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000210s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000246s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000289s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000023s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000058s ]
+NOTIC: [8] Undefined variable: page_title /Users/qingyun/php/mvc/20171127/Application/Runtime/Cache/Home/68d0be99ad1307c774191cc7a6d9e12e.php 第 16 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.018791s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.018822s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000100s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000122s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000258s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000284s ]
+

@@ -60,6 +60,57 @@ class UserController extends BaseController
             }
             $data['role'] = 1;
             $this->ajaxReturn(D('User')->add_user($data));
+
+        }
+    }
+
+
+    public function import_student()
+    {
+        if(IS_POST)
+        {
+            $class_id = I('post.class_id',0);
+            if(empty($class_id))
+            {
+                $this->error('班级信息有误');
+            }
+            $root = 'upload/excel/';
+            $upload = new \Think\Upload();// 实例化上传类
+            $upload->maxSize   =     3145728 ;// 设置附件上传大小
+            $upload->exts      =     array('xls','xlsx');// 设置附件上传类型
+            $upload->rootPath  =      $root; // 设置附件上传根目录
+            $upload->savePath  =      ''; // 设置附件上传（子）目录
+            //// 上传文件
+            $info   =   $upload->upload();
+            if(!$info) {// 上传错误提示错误信息
+                $this->error($upload->getError());
+            }else{
+                // 上传成功 获取上传文件信息
+                $file = $root.$info['xls']['savepath'].$info['xls']['savename'];
+                $data = read_excel($file,2,['number','nickname','id_card','mobile','email','area']);
+                session('import_student_'.$class_id, $data);
+                $this->assign('user_list',$data);
+                $this->assign('class_id',$class_id);
+                $this->display('import_student_list');
+            }
+        }
+
+        if(IS_GET)
+        {
+            $class_id = I('get.id',0);
+            $this->assign('class_id',$class_id);
+            $this->display();
+        }
+    }
+
+    public function import_student_handler()
+    {
+        $cid = I('post.cid',0);
+        //从session中读取数据
+        $data = session('import_student_'.$cid);
+        foreach ($data as $k=>$v)
+        {
+            $v['area'];
         }
     }
 

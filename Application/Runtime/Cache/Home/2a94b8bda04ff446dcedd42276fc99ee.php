@@ -150,7 +150,7 @@
     <div id="iframe_box" class="Hui-article">
         <div class="show_iframe">
             <div style="display:none" class="loading"></div>
-            <iframe scrolling="yes" frameborder="0" src="console.html"></iframe>
+            <iframe scrolling="yes" frameborder="0" src="<?php echo U('Home/Index/welcome');?>"></iframe>
         </div>
     </div>
 </section>
