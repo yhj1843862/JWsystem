@@ -132,15 +132,17 @@ class UserController extends BaseController
             $tmp = D('Area')->posterity(['area_name'=>$a[0],'parent_id'=>0],true);
             foreach ($tmp['list'] as $vv)
             {
-                    if($a[1] == $vv['area_name'])
-                    {
-                        $v['area'] = $vv['area_id'];
-                        //只要找到正确的，就直接退出循环
-                        break;
-                    }else{
-                    //数据库中没有地区信息的情况
-                    $errors[] = ['code'=>$v['number'],'info'=>'籍贯信息有误'];
+                if($a[1] == $vv['area_name'])
+                {
+                    $v['area'] = $vv['area_id'];
+                    //只要找到正确的，就直接退出循环
+                    break;
                 }
+            }
+            //检验是否已经把地区信息转换
+            if(!(int)$v['area'])
+            {
+                $errors[] = ['code'=>$v['number'],'info'=>'籍贯信息有误'];
             }
 
             //组合用户的信息

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit();?><script src="/20171127/static/ui/ui.admin/js/H-ui.admin.js"></script>
+<?php if (!defined('THINK_PATH')) exit();?><script src="../../../../static/ui/ui.admin/js/H-ui.admin.js"></script>
 <head>
     <meta charset="utf-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -45,6 +45,7 @@
                 <th>所属院系</th>
                 <th>添加班级</th>
                 <th>班级列表</th>
+                <th>学科配置</th>
             </tr>
             </thead>
             <tbody>
@@ -61,6 +62,10 @@
                 <td>
                     <a data-href="<?php echo U('Home/Class/class_list',['id'=>$v['profession_id']]);?>" data-title="班级列表（<?php echo ($v["department_name"]); ?>/<?php echo ($v["profession_name"]); ?>）" onClick="Hui_admin_tab(this,2)"><i class="Hui-iconfont Hui-iconfont-list"></i></a>
                 </td>
+                <td>
+                    <a data-href="<?php echo U('Home/Profession/set_subject',['id'=>$v['profession_id']]);?>" title="学科配置（<?php echo ($v["department_name"]); ?>/<?php echo ($v["profession_name"]); ?>）" data-width="1000" onClick="openPage(this)"><i class="Hui-iconfont Hui-iconfont-system"></i></a>
+                </td>
+
 
             </tr><?php endforeach; endif; else: echo "" ;endif; ?>
             </tbody>

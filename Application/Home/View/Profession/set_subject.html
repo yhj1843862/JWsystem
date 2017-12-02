@@ -1,0 +1,98 @@
+<script src="../../../../static/ui/ui.admin/js/H-ui.admin.js"></script>
+<include file="Common/header" />
+<style>
+    a{
+        text-decoration:none;
+    }
+</style>
+<body>
+<div class="page-container">
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+            <thead>
+            <tr class="text-c">
+                <th>编号</th>
+                <th>学科名称</th>
+                <th>介绍</th>
+                <th>选课</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="data.list" id="v">
+            <tr class="text-c" data-id="{$v.subject_id}">
+                <td>{$v.subject_number}</td>
+                <td><a href="">{$v.subject_name}</a></td>
+                <td>{$v.subject_remark}</td>
+                <td class="cancel"></td>
+                <td>
+                    <button type="button" class="btn btn-primary size-MINI noradius elective">选修</button>
+                    <button type="button" class="btn btn-warning size-MINI noradius necessary">必修</button>
+                </td>
+            </tr>
+            </volist>
+            </tbody>
+        </table>
+        {$data.page}
+    </div>
+</div>
+<include file="Common/footer" />
+<script>
+    $(function () {
+        var pid = "{$pid}";
+
+        //添加选修操作
+        $('.elective').click(function () {
+            var i= $(this);
+            var id = i.parent().parent().attr('data-id');
+            $.post('{:U("",["type"=>0])}', {id:id, pid:pid}, function (e) {
+                if(e.status)
+                {
+                    i.parent().prev().html('选修').css('color','#5a98de');
+                    i.addClass('disabled');
+                    i.next().addClass('disabled');
+                }else {
+                    errorAlert(e.info);
+                }
+            });
+
+        });
+
+
+        //添加必修的操作
+        $('.necessary').click(function () {
+            var i= $(this);
+            var id = i.parent().parent().attr('data-id');
+            $.post('{:U("",["type"=>1])}', {id:id, pid:pid}, function (e) {
+                if(e.status)
+                {
+                    i.parent().prev().html('必修').css('color','#f37b1d');
+                    i.addClass('disabled');
+                    i.prev().addClass('disabled');
+                }else {
+                    errorAlert(e.info);
+                }
+            });
+
+
+        });
+
+        $('.cancel').dblclick(function () {
+            var i = $(this);
+            i.html('');
+            i.next().children().removeClass('disabled');
+            //发送一个取消请求
+        });
+
+
+
+
+
+
+
+
+
+    })
+</script>
+</body>
+</html>

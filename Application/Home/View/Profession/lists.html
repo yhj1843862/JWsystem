@@ -1,4 +1,4 @@
-<script src="/20171127/static/ui/ui.admin/js/H-ui.admin.js"></script>
+<script src="../../../../static/ui/ui.admin/js/H-ui.admin.js"></script>
 <include file="Common/header" />
 <style>
     a{
@@ -33,6 +33,7 @@
                 <th>所属院系</th>
                 <th>添加班级</th>
                 <th>班级列表</th>
+                <th>学科配置</th>
             </tr>
             </thead>
             <tbody>
@@ -50,6 +51,10 @@
                 <td>
                     <a data-href="{:U('Home/Class/class_list',['id'=>$v['profession_id']])}" data-title="班级列表（{$v.department_name}/{$v.profession_name}）" onClick="Hui_admin_tab(this,2)"><i class="Hui-iconfont Hui-iconfont-list"></i></a>
                 </td>
+                <td>
+                    <a data-href="{:U('Home/Profession/set_subject',['id'=>$v['profession_id']])}" title="学科配置（{$v.department_name}/{$v.profession_name}）" data-width="1000" onClick="openPage(this)"><i class="Hui-iconfont Hui-iconfont-system"></i></a>
+                </td>
+
 
             </tr>
             </volist>

@@ -27,19 +27,19 @@
         <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
             <thead>
             <tr class="text-c">
+                <th>ID</th>
                 <th>编号</th>
                 <th>名称</th>
-                <th>介绍</th>
+                <th style="width: 60%">介绍</th>
                 <th>添加专业</th>
                 <th>下属专业</th>
-                <!--<th>性别</th>-->
-                <!--<th>角色</th>-->
-                <!--<th>地区</th>-->
             </tr>
             </thead>
             <tbody>
             <volist name="data.list" id="v">
             <tr class="text-c">
+                
+                <td>{$v.department_id}</td>
                 <td>{$v.department_number}</td>
                 <td><a href="{:U('')}">{$v.department_name}</a></td>
                 <td>{$v.department_remark}</td>

@@ -109,7 +109,53 @@ class ProfessionController extends BaseController
         }else{
             $this->ajaxReturn('');
         }
+    }
 
+
+    /**
+     * 某个专业的学科配置
+     */
+    public function set_subject()
+    {
+        if(IS_GET)
+        {
+            $pid = I('get.id',0);
+            $data = D('Subject')->lists(I('get.p'),12);
+            $this->assign('data', $data);
+            $this->assign('pid', $pid);
+            $this->display();
+        }
+
+        if(IS_POST)
+        {
+            $subject_id =  I('post.id',0);
+            $profession_id =  I('post.pid',0);
+            $type = I('post.type',0);
+            //自动的为该专业下的所有班级添加"学科对应关系"
+            $data = D('Class')->class_list(['profession'=>$profession_id],1,999999);
+            $class_list = $data['data']['list'];
+            $data = [];
+            foreach ($class_list as $k=>$v)
+            {
+                $data[$k]['class_id'] = $v['class_id'];
+                $data[$k]['subject_id'] = $subject_id;
+                $data[$k]['necessary'] = $type;
+                $data[$k]['teacher_id'] = 0;
+            }
+            //todo 用户多次插入的可能，添加重复数据的可能
+
+            //将班级和学科关系加入到数据库中
+            if(M('class_subject_teacher')->addAll($data))
+            {
+                $this->ajaxReturn(['status'=>1]);
+            }else{
+                $this->ajaxReturn(['status'=>0,'info'=>'失败']);
+            }
+
+
+
+
+        }
     }
 
 }

@@ -28,4 +28,15 @@ class ClassModel extends Model
         $show       = $Page->show();
         return ['status'=>1,'info'=>'成功', 'data'=>['list'=>$list,'page'=>$show]];
     }
+
+    /**
+     * 获取一个班级的基本信息
+     * @param $value
+     * @param string $key
+     * @return mixed
+     */
+    public function class_info($value, $key = 'class_id')
+    {
+        return $this->where([$key => $value])->find();
+    }
 }

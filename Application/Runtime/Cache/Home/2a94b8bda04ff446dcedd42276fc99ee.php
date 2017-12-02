@@ -102,7 +102,7 @@
         </dl>
         <dl id="menu-framework">
             <dt>
-                <i class="Hui-iconfont Hui-iconfont-home"></i> 院系/专业/班级
+                <i class="Hui-iconfont Hui-iconfont-home"></i> 架构/教学
                 <i class="Hui-iconfont menu_dropdown-arrow Hui-iconfont-arrow2-bottom"></i>
             </dt>
             <dd>
@@ -110,6 +110,7 @@
                     <li>
                         <a data-href="<?php echo U('Home/Department/lists');?>" data-title="院系列表" href="javascript:void(0)">院系列表</a>
                         <a data-href="<?php echo U('Home/profession/lists');?>" data-title="专业管理" href="javascript:void(0)">专业管理</a>
+                        <a data-href="<?php echo U('Home/Subject/lists');?>" data-title="学科管理" href="javascript:void(0)">学科管理</a>
                     </li>
                 </ul>
             </dd>
@@ -150,7 +151,7 @@
     <div id="iframe_box" class="Hui-article">
         <div class="show_iframe">
             <div style="display:none" class="loading"></div>
-            <iframe scrolling="yes" frameborder="0" src="<?php echo U('Home/Index/welcome');?>"></iframe>
+            <iframe scrolling="yes" frameborder="0" src="console.html"></iframe>
         </div>
     </div>
 </section>
