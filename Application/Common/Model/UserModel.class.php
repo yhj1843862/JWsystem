@@ -17,12 +17,26 @@ class UserModel extends Model
     {
         //验证数据格式
         $data = $this->check_user_data($data);
-    }
+
+        if($data === false)
+        {
+            return $this->err;
+        }
+
+        if($this->where(['number'=>$data['number']])->find())
+        {
+            return ['status'=>0,'info'=>'编号已存在'];
+        }
+
+
+     }
 
     /**
      * 验证数据格式
      * @param $data
+     * @return bool
      */
+
     public function check_user_data($data)
     {
         //编号
@@ -32,7 +46,7 @@ class UserModel extends Model
             return false;
         }
         //检验昵称
-        if(!isset($data['nickname']) || mb_strlen($data['nickname'],'UTF-8') > 10  || mb_strlen($data['nickname'],'UTF-8') < 2 )
+         if(!isset($data['nickname']) || mb_strlen($data['nickname'],'UTF-8') > 10  || mb_strlen($data['nickname'],'UTF-8') < 2 )
         {
             $this->err = ['status'=>0, 'info'=>'昵称有误'];
             return false;
@@ -71,10 +85,29 @@ class UserModel extends Model
         //自动完成性别
         $data['sex'] = get_sex_by_id_card($data['id_card']);
         return $data;
-
     }
 
+    /**
+     * 用户列表
+     * @param array $where
+     * @param int $page
+     * @param int $num
+     * @param string $order
+     */
+    public function user_list($where=[],$page =1,$num=10,$order = 'user_id DESC')
+    {
+        $list = $this->where($where)->order($order)->page($page.','.$num)->select();
+        dump($list);
+    }
 
+    public function user_list2($page =1,$num =10,$order = 'user_id DESC')
+    {
+        $fix = C('DB_PREFIX');
+        $start =  ($page -1) * $num;
+        $list = $this->query('SELECT C.*,D.`area_name` FROM (SELECT A.*,B.`role_name` FROM (SELECT * FROM `'.$fix.'user` WHERE 1 ORDER BY '.$order.' LiMIT '.$start.','.$num.')AS A LEFT JOIN `'.$fix.'role` AS B ON B.`role_id`=A.`role`) AS C LEFT JOIN  `'.$fix.'area` AS D ON D.`area_id`=C.`area`');
+
+        dump($list);
+    }
     /**
      * 获取一个用户的基本信息
      *

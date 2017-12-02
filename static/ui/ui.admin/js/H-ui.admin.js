@@ -334,11 +334,17 @@ $(function(){
 		$(window.frames.document).contents().find("#skin").attr("href",hrefRes);
 	});
 });
-//以下为我们自定义的函数
+
+
+
+ /*
+	以下为我们自定义的函数
+ */
 
 function successAlert(info,time) {
 	myAlert(info,6,time);
 }
+
 function myAlert(info, ico, time) {
     if(time == undefined)
     {
@@ -347,6 +353,7 @@ function myAlert(info, ico, time) {
         layer.alert(info, {icon: ico, time:time});
     }
 }
+
 function errorAlert(info,time) {
     myAlert(info,5,time);
 }

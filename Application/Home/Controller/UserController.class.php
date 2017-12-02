@@ -28,4 +28,21 @@ class UserController extends BaseController
             $this->display();
         }
     }
+
+    public function add_student()
+    {
+        
+    }
+
+    public function user_list()
+    {
+        $data = D('User')->user_list2(I('get.p',1),12);
+        foreach ($data['list'] as $k=>$v)
+        {
+            $data['list'][$k]['id_card'] = hide_id_card($v['id_card']);
+        }
+        $this->assign('user_list',$data['list']);
+        $this->assign('page',$data['page']);
+        $this->display();
+    }
 }
