@@ -1,6 +1,7 @@
 <?php
 namespace Home\Controller;
 
+
 class IndexController extends BaseController {
     public function index(){
         U('Home/User/id');

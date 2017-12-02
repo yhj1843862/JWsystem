@@ -17,11 +17,11 @@ class SignController extends Controller
     public function login()
     {
 
-        if(session('user_info'))
-        {
-            //如果用户已经登录,则不能访问登录方法
-            $this->redirect('Home/Index/index');
-        }
+//        if(session('user_info'))
+//        {
+//            //如果用户已经登录,则不能访问登录方法
+//            $this->redirect('Home/Index/index');
+//        }
 
         if(IS_GET)
         {
@@ -64,16 +64,35 @@ class SignController extends Controller
      */
     public function sign_in($string,$password,$type = 'number')
     {
+        $user_info = D('User')->user_info($string,$type);
+        if(empty($user_info))
+        {
+            //用户不存在
+            $this->error('用户不存在');
+        }
+        if(!password_verify($password,$user_info['pswd']))
+        {
+            $this->error('密码有误');
+        }
+        //登录成功的操作
 
+        //获取用户角色信息
+        $user_info['role_name'] = M('role')->where(['role_id'=>$user_info['role']])->getField('role_name');
+        // 写入 session
+        session('user_info',$user_info);
+        $this->success('登录成功',U('Home/Index/index'));
+        exit();
     }
 
 
     public function logout()
     {
-        if(!session('user_info')){
+        if(!session('user_info'))
+        {
+            //如果用户没有登录，则不能退出方法
             $this->redirect('Home/Index/index');
         }
         session('user_info','');
-        $this->refirect('Home/Sign/login');
+        $this->redirect('Home/Sign/login');
     }
 }
