@@ -30,8 +30,7 @@
 
         <div class="row cl">
             <div class="col-xs-6 col-sm-6 col-xs-offset-4 col-sm-offset-3">
-                <button id="subBtn" class="btn btn-primary noradius" type="button">&nbsp;&nbsp;加入到值班列表&nbsp;&nbsp;
-                </button>
+                <button id="subBtn" class="btn btn-primary noradius" type="button">&nbsp;&nbsp;加入到值班列表&nbsp;&nbsp;</button>
             </div>
         </div>
 
@@ -39,22 +38,24 @@
 </article>
 
 <include file="Common/footer"/>
-<script type="text/javascript" src="/20171127/static/ui/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/static/ui/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script>
     $(function () {
 
         $('#subBtn').click(function () {
             var user = parseInt($('#user').val());
-            if (user) {
+            if(user)
+            {
                 var ranking = $('#ranking').val();
-                $.post('', {uid: user, ranking: ranking}, function (e) {
-                    if (e.status) {
+                $.post('', {uid : user, ranking : ranking}, function (e) {
+                    if(e.status)
+                    {
                         window.parent.location.reload();
-                    } else {
+                    }else {
                         errorAlert(e.info);
                     }
                 });
-            } else {
+            }else{
                 errorAlert('请选择正确的值班人员');
             }
 

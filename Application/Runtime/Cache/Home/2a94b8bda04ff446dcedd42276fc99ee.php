@@ -111,6 +111,8 @@
                 <ul>
                     <li>
                         <a data-href="<?php echo U('Home/Duty/lists');?>" data-title="值班人员列表" href="javascript:void(0)">值班人员列表</a>
+                        <a data-href="<?php echo U('Home/Duty/plan');?>" data-title="值班安排" href="javascript:void(0)">值班安排</a>
+                        <a data-href="<?php echo U('Home/Duty/logs');?>" data-title="值班日志" href="javascript:void(0)">值班日志</a>
                     </li>
                 </ul>
             </dd>

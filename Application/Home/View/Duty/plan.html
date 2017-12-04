@@ -24,24 +24,32 @@
         <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
             <thead>
             <tr class="text-c">
+                <th>值班日期</th>
                 <th>编号</th>
                 <th>姓名</th>
                 <th>手机号</th>
                 <th>邮箱</th>
                 <th>排序</th>
+                <th>调班</th>
 
             </tr>
             </thead>
             <tbody>
-            <volist name="list" id="v">
+            <foreach name="plan" item="v" key="k" >
             <tr class="text-c">
+                <td>{$k}</td>
                 <td>{$v.number}</td>
                 <td><a>{$v.nickname}</a></td>
                 <td>{$v.mobile}</td>
                 <td>{$v.email}</td>
                 <td>{$v.ranking}</td>
+                <td>
+                    <if condition="$v['id_card'] eq $user_info['id_card']">
+                        <a onClick="openPage(this)" data-href="{:U('change_duty',['d'=>$k])}" href="javascript:;" title="调班">调班</a>
+                    </if>
+                </td>
             </tr>
-            </volist>
+            </foreach>
             </tbody>
         </table>
         {$data.page}
