@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<include file="Common/header"/>
+<body>
+<article class="page-container">
+    <form action="" method="post" class="form form-horizontal" id="form-member-add">
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span> 任课教师：</label>
+            <div class="formControls col-xs-3 col-sm-3">
+                <span class="select-box">
+                    <select class="select" size="1" id="teacher">
+                        <option value="0" selected>请选择教师</option>
+                        <volist name="teachers" id="v">
+                        <option value="{$v.user_id}">{$v.nickname}</option>
+                        </volist>
+                    </select>
+				</span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-6 col-sm-6 col-xs-offset-4 col-sm-offset-3">
+                <button id="subBtn" class="btn btn-primary noradius" type="button">&nbsp;&nbsp;添加&nbsp;&nbsp;</button>
+            </div>
+        </div>
+
+    </form>
+</article>
+
+<include file="Common/footer"/>
+<script type="text/javascript" src="/20171127/static/ui/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script>
+    $(function () {
+
+        var cid = "{$class_id}";
+        var sid = "{$subject_id}";
+        $('#subBtn').click(function () {
+            var teacher = parseInt($('#teacher').val());
+            if(teacher)
+            {
+                $.post('', {cid:cid,sid:sid,tid:teacher}, function (e) {
+                    if(e.status)
+                    {
+                        window.parent.location.reload();
+                    }else {
+                        errorAlert(e.info);
+                    }
+                });
+            }else{
+                errorAlert('请选择正确的教师');
+            }
+
+
+        });
+
+
+    })
+</script>
+</body>
+</html>

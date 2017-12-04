@@ -1,3 +1,5 @@
+<!DOCTYPE HTML>
+<html>
 <include file="Common/header" />
 <style>
     a{
@@ -52,11 +54,7 @@
                 <td><if condition="$v['sex']">男<else/>女</if></td>
                 <td>{$v.role_name}</td>
                 <td data-id="{$v.area}" class="area"><span>{$v.area_name}</span></td>
-                <!--<td class="f-14 td-manage">-->
-                    <!--<a onClick="openPage(this)" data-href="{:U('Home/Area/add',['id'=>$v['area_id']])}" href="javascript:;" title="添加下级地区">-->
-                        <!--<i class="Hui-iconfont Hui-iconfont-add"></i>-->
-                    <!--</a>-->
-                <!--</td>-->
+            
             </tr>
             </volist>
             </tbody>

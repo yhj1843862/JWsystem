@@ -30,15 +30,15 @@
                 <th>ID</th>
                 <th>编号</th>
                 <th>名称</th>
-                <th style="width: 60%">介绍</th>
+                <th width="50%">介绍</th>
                 <th>添加专业</th>
                 <th>下属专业</th>
+
             </tr>
             </thead>
             <tbody>
             <volist name="data.list" id="v">
             <tr class="text-c">
-                
                 <td>{$v.department_id}</td>
                 <td>{$v.department_number}</td>
                 <td><a href="{:U('')}">{$v.department_name}</a></td>
@@ -48,7 +48,6 @@
                         <i class="Hui-iconfont Hui-iconfont-add"></i>
                     </a>
                 </td>
-
                 <td>
                     <a onClick="openPage(this)" data-width="1200" data-href="{:U('Home/profession/lists',['id'=>$v['department_id'],'from'=>1])}" href="javascript:;" title="专业列表（{$v.department_name}）">
                         <i class="Hui-iconfont Hui-iconfont-ordered-list"></i>

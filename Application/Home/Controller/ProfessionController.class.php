@@ -57,7 +57,6 @@ class ProfessionController extends BaseController
                 $this->ajaxReturn(['status'=>0, 'info'=>'编号"'.$number.'"已存在']);
             }
 
-
             //将数据插入到数据库
             if($m->add(['profession_name'=>$name, 'profession_number'=>$number, 'department'=>$department_id , 'profession_remark'=>$remark]))
             {
@@ -121,6 +120,21 @@ class ProfessionController extends BaseController
         {
             $pid = I('get.id',0);
             $data = D('Subject')->lists(I('get.p'),12);
+            $selected = M('class_subject_teacher')->where(['profession_id'=>$pid])->group('subject_id')->select();
+            foreach ($data['list'] as $k=>$v)
+            {
+                foreach ($selected as $kk=>$vv) {
+                    if ($v['subject_id'] == $vv['subject_id'])
+                    {
+                        $v['selected'] = 1;
+                        $v['necessary'] = $vv['necessary'];
+                        break;
+                    }else{
+                        $v['selected'] = 0;
+                    }
+                }
+                $data['list'][$k] = $v;
+            }
             $this->assign('data', $data);
             $this->assign('pid', $pid);
             $this->display();
@@ -140,21 +154,35 @@ class ProfessionController extends BaseController
                 $data[$k]['class_id'] = $v['class_id'];
                 $data[$k]['subject_id'] = $subject_id;
                 $data[$k]['necessary'] = $type;
+                //记录专业和学科的对应关系
+                $data[$k]['profession_id'] = $profession_id;
                 $data[$k]['teacher_id'] = 0;
             }
-            //todo 用户多次插入的可能，添加重复数据的可能
 
             //将班级和学科关系加入到数据库中
+            //删除之前添加过的对应关系，为了防止用户多次插入的可能，添加重复数据的可能
+            D('Subject')->delete_profession_subject($subject_id, $profession_id);
             if(M('class_subject_teacher')->addAll($data))
             {
                 $this->ajaxReturn(['status'=>1]);
             }else{
                 $this->ajaxReturn(['status'=>0,'info'=>'失败']);
             }
+        }
+    }
 
-
-
-
+    /**
+     * 删除一个学科和某个专业的对应关系
+     */
+    public function delete_subject()
+    {
+        $subject_id =  I('post.id',0);
+        $profession_id =  I('post.pid',0);
+        if(D('Subject')->delete_profession_subject($subject_id, $profession_id))
+        {
+            $this->ajaxReturn(['status'=>1]);
+        }else{
+            $this->ajaxReturn(['status'=>0, 'info'=>'取消失败']);
         }
     }
 

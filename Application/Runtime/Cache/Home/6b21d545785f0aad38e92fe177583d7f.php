@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit();?><script src="../../../../static/ui/ui.admin/js/H-ui.admin.js"></script>
+<?php if (!defined('THINK_PATH')) exit();?><script src="/20171127/static/ui/ui.admin/js/H-ui.admin.js"></script>
 <head>
     <meta charset="utf-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">

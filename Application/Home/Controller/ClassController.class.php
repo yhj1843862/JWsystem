@@ -111,4 +111,47 @@ class ClassController extends BaseController
         $this->assign('page', $data['page']);
         $this->display();
     }
+
+    /**
+     * 某个班级的学科列表
+     */
+    public function subject_list()
+    {
+        $class_id = I('get.id',0);
+        $data = D('Subject')->class_subject_list($class_id, I('get.p',1));
+        $this->assign('data', $data);
+        $this->display();
+    }
+
+    public function set_teacher()
+    {
+        if(IS_GET)
+        {
+            $cid = I('get.cid',0);
+            $sid = I('get.sid',0);
+            $teachers = M('User')->where(['role'=>2])->select();
+            $this->assign('teachers', $teachers);
+            $this->assign('class_id', $cid);
+            $this->assign('subject_id', $sid);
+            $this->display();
+        }
+
+        if(IS_POST)
+        {
+            $cid = I('post.cid', 0);
+            $sid = I('post.sid', 0);
+            $tid = I('post.tid', 0);
+            if(empty($sid) || empty($cid) || empty($tid))
+            {
+                $this->error('信息不全');
+            }
+            if(M('class_subject_teacher')->where(['class_id'=>$cid, 'subject_id'=>$sid])->save(['teacher_id'=>$tid]))
+            {
+                $this->success('成功');
+            }else{
+                $this->error('失败');
+            }
+        }
+
+    }
 }

@@ -44,6 +44,7 @@
                 <th>毕业时间</th>
                 <th>班级人数</th>
                 <th>辅导员</th>
+                <th>学科列表</th>
                 <th>班级人员管理</th>
             </tr>
             </thead>
@@ -55,6 +56,11 @@
                 <td><?php echo ($v["end_time"]); ?></td>
                 <td><?php echo ($v["student_num"]); ?></td>
                 <td><?php echo ($v["nickname"]); ?> ( <?php echo ($v["mobile"]); ?> )</td>
+                <td>
+                    <a onClick="openPage(this)" data-width="1200" data-href="<?php echo U('Home/Class/subject_list',['id'=>$v['class_id']]);?>" href="javascript:;" title="学科列表 （<?php echo ($v["class_name"]); ?>）">
+                        <i class="Hui-iconfont Hui-iconfont-fenlei"></i>
+                    </a>
+                </td>
                 <td>
                     <a onClick="openPage(this)" data-width="1200" data-height="500" data-href="<?php echo U('Home/Class/class_student_list',['id'=>$v['class_id']]);?>" href="javascript:;" title="学生列表 （<?php echo ($v["class_name"]); ?>）">
                     <i class="Hui-iconfont Hui-iconfont-list"></i>

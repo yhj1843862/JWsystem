@@ -1,4 +1,6 @@
-<?php if (!defined('THINK_PATH')) exit();?><head>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE HTML>
+<html>
+<head>
     <meta charset="utf-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -65,11 +67,7 @@
                 <td><?php if($v['sex']): ?>男<?php else: ?>女<?php endif; ?></td>
                 <td><?php echo ($v["role_name"]); ?></td>
                 <td data-id="<?php echo ($v["area"]); ?>" class="area"><span><?php echo ($v["area_name"]); ?></span></td>
-                <!--<td class="f-14 td-manage">-->
-                    <!--<a onClick="openPage(this)" data-href="<?php echo U('Home/Area/add',['id'=>$v['area_id']]);?>" href="javascript:;" title="添加下级地区">-->
-                        <!--<i class="Hui-iconfont Hui-iconfont-add"></i>-->
-                    <!--</a>-->
-                <!--</td>-->
+            
             </tr><?php endforeach; endif; else: echo "" ;endif; ?>
             </tbody>
         </table>

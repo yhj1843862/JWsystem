@@ -18,7 +18,7 @@ class DepartmentController extends BaseController
     public function lists()
     {
         $m = M('Department');
-        $num = 12;
+        $num = 4;
         $page = I('get.p',1);
         $list = $m->order('department_id')->page($page.','.$num)->select();
         $count      = $m->count();
@@ -27,7 +27,6 @@ class DepartmentController extends BaseController
         $this->assign('data', ['list'=>$list, 'page'=>$show]);
         $this->display();
     }
-
 
     /**
      * 添加院系

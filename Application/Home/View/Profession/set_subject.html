@@ -1,4 +1,6 @@
-<script src="../../../../static/ui/ui.admin/js/H-ui.admin.js"></script>
+<html>
+<script src="/20171127/static/ui/ui.admin/js/H-ui.admin.js"></script>
+
 <include file="Common/header" />
 <style>
     a{
@@ -20,16 +22,24 @@
             </thead>
             <tbody>
             <volist name="data.list" id="v">
-            <tr class="text-c" data-id="{$v.subject_id}">
-                <td>{$v.subject_number}</td>
-                <td><a href="">{$v.subject_name}</a></td>
-                <td>{$v.subject_remark}</td>
-                <td class="cancel"></td>
-                <td>
-                    <button type="button" class="btn btn-primary size-MINI noradius elective">选修</button>
-                    <button type="button" class="btn btn-warning size-MINI noradius necessary">必修</button>
-                </td>
-            </tr>
+                <tr class="text-c" data-id="{$v.subject_id}">
+                    <td>{$v.subject_number}</td>
+                    <td><a href="">{$v.subject_name}</a></td>
+                    <td>{$v.subject_remark}</td>
+                    <if condition="$v['selected']">
+                        <if condition="$v['necessary']">
+                            <td class="cancel c-warning pointer">必修</td>
+                            <else/>
+                            <td class="cancel c-primary pointer">选修</td>
+                        </if>
+                        <else/>
+                        <td class="cancel"></td>
+                    </if>
+                    <td>
+                        <button type="button" class="btn btn-primary size-MINI noradius elective">选修</button>
+                        <button type="button" class="btn btn-warning size-MINI noradius necessary">必修</button>
+                    </td>
+                </tr>
             </volist>
             </tbody>
         </table>
@@ -45,10 +55,10 @@
         $('.elective').click(function () {
             var i= $(this);
             var id = i.parent().parent().attr('data-id');
-            $.post('{:U("",["type"=>0])}', {id:id, pid:pid}, function (e) {
+            $.post('', {id:id, pid:pid, type:0}, function (e) {
                 if(e.status)
                 {
-                    i.parent().prev().html('选修').css('color','#5a98de');
+                    i.parent().prev().html('选修').removeClass('c-warning').addClass('c-primary pointer');
                     i.addClass('disabled');
                     i.next().addClass('disabled');
                 }else {
@@ -63,10 +73,10 @@
         $('.necessary').click(function () {
             var i= $(this);
             var id = i.parent().parent().attr('data-id');
-            $.post('{:U("",["type"=>1])}', {id:id, pid:pid}, function (e) {
+            $.post('', {id:id, pid:pid, type:1}, function (e) {
                 if(e.status)
                 {
-                    i.parent().prev().html('必修').css('color','#f37b1d');
+                    i.parent().prev().html('必修').removeClass('c-primary').addClass('c-warning pointer');
                     i.addClass('disabled');
                     i.prev().addClass('disabled');
                 }else {
@@ -79,16 +89,23 @@
 
         $('.cancel').dblclick(function () {
             var i = $(this);
-            i.html('');
-            i.next().children().removeClass('disabled');
-            //发送一个取消请求
+            layer.confirm('取消选课会删除掉本专业已添加的任课信息', {
+                btn: ['确定','取消'] //按钮
+            }, function(index){
+                var id = i.parent().attr('data-id');
+                $.post('{:U("delete_subject")}', {id:id, pid:pid}, function (e) {
+                    if(e.status)
+                    {
+                        i.html('');
+                        i.next().children().removeClass('disabled');
+                    }else {
+                        errorAlert(e.info);
+                    }
+                });
+                layer.close(index);
+            });
+
         });
-
-
-
-
-
-
 
 
 
