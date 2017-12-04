@@ -4,15 +4,16 @@
     <meta charset="utf-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
 
-    <link rel="stylesheet" type="text/css" href="/20171127/static/ui/ui/css/H-ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="/20171127/static/ui/ui.admin/css/H-ui.admin.css" />
-    <link rel="stylesheet" type="text/css" href="/20171127/static/ui/lib/Hui-iconfont/1.0.8/iconfont.css" />
-    <link rel="stylesheet" type="text/css" href="/20171127/static/ui/ui.admin/skin/default/skin.css" id="skin" />
-    <link rel="stylesheet" type="text/css" href="/20171127/static/ui/ui.admin/css/style.css" />
-    
+    <link rel="stylesheet" type="text/css" href="/20171127/static/ui/ui/css/H-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/20171127/static/ui/ui.admin/css/H-ui.admin.css"/>
+    <link rel="stylesheet" type="text/css" href="/20171127/static/ui/lib/Hui-iconfont/1.0.8/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="/20171127/static/ui/ui.admin/skin/default/skin.css" id="skin"/>
+    <link rel="stylesheet" type="text/css" href="/20171127/static/ui/ui.admin/css/style.css"/>
+
     <title><?php echo ($page_title); ?></title>
     <meta name="keywords" content="网站后台管理系统">
     <meta name="description" content="轻量级扁平化网站后台管理系统，适合中小型CMS后台系统。">
@@ -82,18 +83,22 @@
             <dd>
                 <ul>
                     <li>
-                        <a data-href="<?php echo U('Home/Department/lists');?>" data-title="院系列表" href="javascript:void(0)">院系列表</a>
-                        <a data-href="<?php echo U('Home/profession/lists');?>" data-title="专业管理" href="javascript:void(0)">专业管理</a>
+                        <a data-href="<?php echo U('Home/Department/lists');?>" data-title="院系列表"
+                           href="javascript:void(0)">院系列表</a>
+                        <a data-href="<?php echo U('Home/profession/lists');?>" data-title="专业管理"
+                           href="javascript:void(0)">专业管理</a>
                         <a data-href="<?php echo U('Home/Subject/lists');?>" data-title="学科管理" href="javascript:void(0)">学科管理</a>
                     </li>
                 </ul>
             </dd>
         </dl>
         <dl id="menu-system">
-            <dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow Hui-iconfont-arrow2-bottom"></i></dt>
+            <dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i
+                    class="Hui-iconfont menu_dropdown-arrow Hui-iconfont-arrow2-bottom"></i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="<?php echo U('Home/Area/area_list');?>" data-title="地区管理" href="javascript:void(0)">地区管理</a></li>
+                    <li><a data-href="<?php echo U('Home/Area/area_list');?>" data-title="地区管理" href="javascript:void(0)">地区管理</a>
+                    </li>
                 </ul>
             </dd>
         </dl>
@@ -110,7 +115,6 @@
                 </ul>
             </dd>
         </dl>
-
     </div>
 </aside>
 
@@ -146,8 +150,8 @@
 
 <div class="contextMenu" id="Huiadminmenu">
     <ul>
-        <li id="closethis">关闭当前 </li>
-        <li id="closeall">关闭全部 </li>
+        <li id="closethis">关闭当前</li>
+        <li id="closeall">关闭全部</li>
     </ul>
 </div>
 <script type="text/javascript" src="/20171127/static/ui/lib/jquery/1.9.1/jquery.min.js"></script>
