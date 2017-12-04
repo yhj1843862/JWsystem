@@ -44,32 +44,6 @@
 
 <aside class="Hui-aside">
     <div class="menu_dropdown bk_2">
-        <dl id="menu-article">
-            <dt>
-                <i class="Hui-iconfont">&#xe616;</i> 资讯管理
-                <i class="Hui-iconfont menu_dropdown-arrow Hui-iconfont-arrow2-bottom"></i>
-            </dt>
-            <dd>
-                <ul>
-                    <li>
-                        <a data-href="http://www.baidu.com" data-title="资讯管理" href="javascript:void(0)">资讯管理</a>
-                    </li>
-                </ul>
-            </dd>
-        </dl>
-        <dl id="menu-picture">
-            <dt>
-                <i class="Hui-iconfont">&#xe613;</i> 图片管理
-                <i class="Hui-iconfont menu_dropdown-arrow Hui-iconfont-arrow2-bottom"></i>
-            </dt>
-            <dd>
-                <ul>
-                    <li>
-                        <a data-href="picture-list.html" data-title="图片管理" href="javascript:void(0)">图片管理</a>
-                    </li>
-                </ul>
-            </dd>
-        </dl>
         <dl id="menu-member">
             <dt>
                 <i class="Hui-iconfont">&#xe60d;</i> 用户管理
@@ -92,24 +66,41 @@
             <dd>
                 <ul>
                     <li>
-                        <a data-href="{:U('Home/Department/lists')}" data-title="院系列表" href="javascript:void(0)">院系列表</a>
-                        <a data-href="{:U('Home/profession/lists')}" data-title="专业管理" href="javascript:void(0)">专业管理</a>
+                        <a data-href="{:U('Home/Department/lists')}" data-title="院系列表"
+                           href="javascript:void(0)">院系列表</a>
+                        <a data-href="{:U('Home/profession/lists')}" data-title="专业管理"
+                           href="javascript:void(0)">专业管理</a>
                         <a data-href="{:U('Home/Subject/lists')}" data-title="学科管理" href="javascript:void(0)">学科管理</a>
                     </li>
                 </ul>
             </dd>
         </dl>
         <dl id="menu-system">
-            <dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow Hui-iconfont-arrow2-bottom"></i></dt>
+            <dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i
+                    class="Hui-iconfont menu_dropdown-arrow Hui-iconfont-arrow2-bottom"></i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="{:U('Home/Area/area_list')}" data-title="地区管理" href="javascript:void(0)">地区管理</a></li>
+                    <li><a data-href="{:U('Home/Area/area_list')}" data-title="地区管理" href="javascript:void(0)">地区管理</a>
+                    </li>
                 </ul>
             </dd>
         </dl>
-
+        <dl id="menu-duty">
+            <dt>
+                <i class="Hui-iconfont Hui-iconfont-home"></i> 值班管理
+                <i class="Hui-iconfont menu_dropdown-arrow Hui-iconfont-arrow2-bottom"></i>
+            </dt>
+            <dd>
+                <ul>
+                    <li>
+                        <a data-href="{:U('Home/Duty/lists')}" data-title="值班人员列表" href="javascript:void(0)">值班人员列表</a>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
     </div>
 </aside>
+
 <div class="dislpayArrow hidden-xs">
     <a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a>
 </div>
@@ -142,10 +133,10 @@
 
 <div class="contextMenu" id="Huiadminmenu">
     <ul>
-        <li id="closethis">关闭当前 </li>
-        <li id="closeall">关闭全部 </li>
+        <li id="closethis">关闭当前</li>
+        <li id="closeall">关闭全部</li>
     </ul>
 </div>
-<include file="Common/footer" />
+<include file="Common/footer"/>
 </body>
 </html>

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<include file="Common/header"/>
+<body>
+<article class="page-container">
+    <form action="" method="post" class="form form-horizontal" id="form-member-add">
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span> 值班人员：</label>
+            <div class="formControls col-xs-4 col-sm-5">
+                <span class="select-box">
+                    <select class="select" size="1" id="user">
+                        <option value="0" selected>请选择值班人员</option>
+                        <volist name="list" id="v">
+                        <option value="{$v.user_id}">{$v.nickname} ({$v.mobile})</option>
+                        </volist>
+                    </select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>值班顺序：
+            </label>
+            <div class="formControls col-xs-4 col-sm-5">
+                <input type="text" class="input-text" id="ranking" placeholder="该用户的值班顺序，0-999可选">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-6 col-sm-6 col-xs-offset-4 col-sm-offset-3">
+                <button id="subBtn" class="btn btn-primary noradius" type="button">&nbsp;&nbsp;加入到值班列表&nbsp;&nbsp;
+                </button>
+            </div>
+        </div>
+
+    </form>
+</article>
+
+<include file="Common/footer"/>
+<script type="text/javascript" src="/20171127/static/ui/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script>
+    $(function () {
+
+        $('#subBtn').click(function () {
+            var user = parseInt($('#user').val());
+            if (user) {
+                var ranking = $('#ranking').val();
+                $.post('', {uid: user, ranking: ranking}, function (e) {
+                    if (e.status) {
+                        window.parent.location.reload();
+                    } else {
+                        errorAlert(e.info);
+                    }
+                });
+            } else {
+                errorAlert('请选择正确的值班人员');
+            }
+
+
+        });
+
+
+    })
+</script>
+</body>
+</html>

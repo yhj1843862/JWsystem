@@ -1,7 +1,7 @@
-<include file="Common/header" />
+<include file="Common/header"/>
 <style>
-    a{
-        text-decoration:none;
+    a {
+        text-decoration: none;
     }
 </style>
 <body>
@@ -15,7 +15,8 @@
             </if>
         </span>
         <span class="r">
-            <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
+            <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
+               href="javascript:location.replace(location.href);" title="刷新">
                 <i class="Hui-iconfont Hui-iconfont-huanyipi"></i>
             </a>
         </span>
@@ -36,33 +37,39 @@
             </thead>
             <tbody>
             <volist name="data.list" id="v">
-            <tr class="text-c">
-                <td>{$v.class_number}</td>
-                <td><a href="{:U('')}">{$v.class_name}</a></td>
-                <td>{$v.start_time}</td>
-                <td>{$v.end_time}</td>
-                <td>{$v.student_num}</td>
-                <td>{$v.nickname} ( {$v.mobile} )</td>
-                <td>
-                    <a onClick="openPage(this)" data-width="1200" data-href="{:U('Home/Class/subject_list',['id'=>$v['class_id']])}" href="javascript:;" title="学科列表 （{$v.class_name}）">
-                        <i class="Hui-iconfont Hui-iconfont-fenlei"></i>
-                    </a>
-                </td>
-                <td>
-                    <a onClick="openPage(this)" data-width="1200" data-height="500" data-href="{:U('Home/Class/class_student_list',['id'=>$v['class_id']])}" href="javascript:;" title="学生列表 （{$v.class_name}）">
-                    <i class="Hui-iconfont Hui-iconfont-list"></i>
-                    </a>
-                    <a onClick="openPage(this)" data-width="1200" data-height="600" data-href="{:U('Home/User/import_student',['id'=>$v['class_id']])}" href="javascript:;" title="导入学生信息 （{$v.class_name}）">
-                        <i class="Hui-iconfont Hui-iconfont-daoru"></i>
-                    </a>
-                </td>
-            </tr>
+                <tr class="text-c">
+                    <td>{$v.class_number}</td>
+                    <td><a href="{:U('')}">{$v.class_name}</a></td>
+                    <td>{$v.start_time}</td>
+                    <td>{$v.end_time}</td>
+                    <td>{$v.student_num}</td>
+                    <td>{$v.nickname} ( {$v.mobile} )</td>
+                    <td>
+                        <a onClick="openPage(this)" data-width="1200"
+                           data-href="{:U('Home/Class/subject_list',['id'=>$v['class_id']])}" href="javascript:;"
+                           title="学科列表 （{$v.class_name}）">
+                            <i class="Hui-iconfont Hui-iconfont-fenlei"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a onClick="openPage(this)" data-width="1200" data-height="500"
+                           data-href="{:U('Home/Class/class_student_list',['id'=>$v['class_id']])}" href="javascript:;"
+                           title="学生列表 （{$v.class_name}）">
+                            <i class="Hui-iconfont Hui-iconfont-list"></i>
+                        </a>
+                        <a onClick="openPage(this)" data-width="1200" data-height="600"
+                           data-href="{:U('Home/User/import_student',['id'=>$v['class_id']])}" href="javascript:;"
+                           title="导入学生信息 （{$v.class_name}）">
+                            <i class="Hui-iconfont Hui-iconfont-daoru"></i>
+                        </a>
+                    </td>
+                </tr>
             </volist>
             </tbody>
         </table>
         {$data.page}
     </div>
 </div>
-<include file="Common/footer" />
+<include file="Common/footer"/>
 </body>
 </html>

@@ -1,7 +1,7 @@
-<include file="Common/header" />
+<include file="Common/header"/>
 <style>
-    a{
-        text-decoration:none;
+    a {
+        text-decoration: none;
     }
 </style>
 <body>
@@ -21,15 +21,15 @@
             </thead>
             <tbody>
             <volist name="user_list" id="v">
-            <tr class="text-c">
-                <td>{$v.number}</td>
-                <td><a href="">{$v.nickname}</a></td>
-                <td>{$v.email}</td>
-                <td>{$v.mobile}</td>
-                <td>{$v.id_card}</td>
-                <td data-id="{$v.area}" class="area"><span>{$v.area}</span></td>
-                <td id="{$v.number}" class="result"></td>
-            </tr>
+                <tr class="text-c">
+                    <td>{$v.number}</td>
+                    <td><a href="">{$v.nickname}</a></td>
+                    <td>{$v.email}</td>
+                    <td>{$v.mobile}</td>
+                    <td>{$v.id_card}</td>
+                    <td data-id="{$v.area}" class="area"><span>{$v.area}</span></td>
+                    <td id="{$v.number}" class="result"></td>
+                </tr>
             </volist>
             </tbody>
         </table>
@@ -37,23 +37,20 @@
         <button id="subBtn" class="btn btn-primary noradius mt-10" type="button">&nbsp;&nbsp;确认导入&nbsp;&nbsp;</button>
     </div>
 </div>
-<include file="Common/footer" />
+<include file="Common/footer"/>
 <script>
     $('#subBtn').click(function () {
         var cid = parseInt($('#cid').val());
-        if(!cid)
-        {
+        if (!cid) {
             errorAlert('班级信息不全');
             return false;
         }
-        $.post('{:U("Home/User/import_student_handler")}',{cid:cid},function (e) {
+        $.post('{:U("Home/User/import_student_handler")}', {cid: cid}, function (e) {
             var l = e.length;
-            $('.result').html('<i class="Hui-iconfont Hui-iconfont-xuanze"></i>').css('color','green');
-            if(l)
-            {
-                for (var i in e)
-                {
-                    $('#'+e[i].code).html(e[i].info).css('color','red');
+            $('.result').html('<i class="Hui-iconfont Hui-iconfont-xuanze"></i>').css('color', 'green');
+            if (l) {
+                for (var i in e) {
+                    $('#' + e[i].code).html(e[i].info).css('color', 'red');
                 }
             }
 

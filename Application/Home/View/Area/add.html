@@ -37,17 +37,15 @@
         var parentId = '{$parentInfo.area_id}';
         $('#subBtn').click(function () {
             var name = $('#name').val();
-            if(name.length < 2 || name.length > 20)
-            {
-                errorAlert('地区名称长度应该在2-20之间',2000);
+            if (name.length < 2 || name.length > 20) {
+                errorAlert('地区名称长度应该在2-20之间', 2000);
                 return false;
             }
-            $.post('{:U("Home/Area/add")}', {pid:parentId,name:name}, function (e) {
-                if(e.status)
-                {
+            $.post('{:U("Home/Area/add")}', {pid: parentId, name: name}, function (e) {
+                if (e.status) {
                     $('#name').val('');
                     successAlert(e.info, 1000)
-                }else {
+                } else {
                     errorAlert(e.info, 2000);
                 }
             })

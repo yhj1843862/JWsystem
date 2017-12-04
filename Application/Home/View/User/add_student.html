@@ -11,7 +11,7 @@
                 <span class="c-red">*</span>编号：
             </label>
             <div class="formControls col-xs-6 col-sm-6">
-                <input type="text" class="input-text" id="number" >
+                <input type="text" class="input-text" id="number">
             </div>
         </div>
 
@@ -129,8 +129,8 @@
         $('#depart').change(function () {
             //获取对应院系下的专业
             var did = $(this).val();
-            $.post('{:U("Department/ajax_profession_list_html")}',{id:did},function (e) {
-                $('#profess').html('<option value="0" selected>请选择专业</option>'+e);
+            $.post('{:U("Department/ajax_profession_list_html")}', {id: did}, function (e) {
+                $('#profess').html('<option value="0" selected>请选择专业</option>' + e);
             })
 
         });
@@ -138,18 +138,17 @@
         $('#profess').change(function () {
             //获取专业下的班级信息
             var pid = $(this).val();
-            $.post('{:U("Profession/ajax_class_list")}',{pid:pid},function (e) {
-                $('#class').html('<option value="0" selected>请选择班级</option>'+e);
+            $.post('{:U("Profession/ajax_class_list")}', {pid: pid}, function (e) {
+                $('#class').html('<option value="0" selected>请选择班级</option>' + e);
             })
 
         });
 
         $('#subBtn').click(function () {
             var areas = document.getElementsByClassName('area');
-            var area = parseInt(areas[areas.length-1].value);
-            if(area == 0)
-            {
-                errorAlert('请选择正确的地区',2000);
+            var area = parseInt(areas[areas.length - 1].value);
+            if (area == 0) {
+                errorAlert('请选择正确的地区', 2000);
                 return false;
             }
             var nickname = $('#nickname').val();
@@ -161,11 +160,20 @@
             var profess = $('#profess').val();
             var class_id = $('#class').val();
 
-            $.post('',{nickname:nickname,department:depart,profession:profess,class:class_id,email:email,id_card:id_card,mobile:mobile,area:area,number:number},function (e) {
-                if(e.status)
-                {
+            $.post('', {
+                nickname: nickname,
+                department: depart,
+                profession: profess,
+                class: class_id,
+                email: email,
+                id_card: id_card,
+                mobile: mobile,
+                area: area,
+                number: number
+            }, function (e) {
+                if (e.status) {
                     window.parent.location.reload();
-                }else {
+                } else {
                     errorAlert(e.info);
                 }
             })
@@ -176,25 +184,22 @@
     });
 
     function get_area(domId) {
-        $(document).on('change','.'+domId,function(){
+        $(document).on('change', '.' + domId, function () {
             var t = $(this);
             t.parent().parent().nextAll().remove();
             var id = parseInt(t.val());
-            if(id == 0)
-            {
+            if (id == 0) {
                 return false;
             }
-            $.post('{:U("Home/Area/ajax_area_list")}',{pid:id},function (e) {
-                if(e.length)
-                {
+            $.post('{:U("Home/Area/ajax_area_list")}', {pid: id}, function (e) {
+                if (e.length) {
                     var tmp = '<div class="formControls col-xs-2">' +
                         '                <span class="select-box">' +
                         '                    <select class="select area" size="1">' +
                         '                        <option value="0" selected>请选择地区</option>';
-                    for (var i in e)
-                    {
+                    for (var i in e) {
                         var j = e[i];
-                        tmp += '<option value="'+j.area_id+'">'+j.area_name+'</option>';
+                        tmp += '<option value="' + j.area_id + '">' + j.area_name + '</option>';
                     }
                     tmp += '</select></span></div>';
                     t.parent().parent().after(tmp);

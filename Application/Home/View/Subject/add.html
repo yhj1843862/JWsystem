@@ -11,7 +11,7 @@
                 <span class="c-red">*</span> 名称：
             </label>
             <div class="formControls col-xs-6 col-sm-6">
-                <input type="text" class="input-text" id="name" placeholder="学科的名称"  >
+                <input type="text" class="input-text" id="name" placeholder="学科的名称">
             </div>
         </div>
 
@@ -21,14 +21,14 @@
                 <span class="c-red">*</span> 编号：
             </label>
             <div class="formControls col-xs-6 col-sm-6">
-                <input type="text" class="input-text" id="number" placeholder="学科的编号" >
+                <input type="text" class="input-text" id="number" placeholder="学科的编号">
             </div>
         </div>
 
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">学科介绍：</label>
             <div class="formControls col-xs-6 col-sm-6">
-                <textarea class="textarea" id="remark"  placeholder="学科的介绍...最少10个字符"></textarea>
+                <textarea class="textarea" id="remark" placeholder="学科的介绍...最少10个字符"></textarea>
             </div>
         </div>
 
@@ -48,17 +48,17 @@
             var number = $('#number').val();
             var name = $('#name').val();
             var remark = $('#remark').val();
-            if(remark.length < 10)
-            {
+            if (remark.length < 10) {
                 errorAlert('学科介绍至少需要10个字符');
                 return false;
             }
-            $.post('', {n:number, name: name, r:remark}, function (e) {
-                if(e.status)
-                {
+            $.post('', {n: number, name: name, r: remark}, function (e) {
+                if (e.status) {
                     successAlert(e.info);
-                    $('#number').val('');$('#name').val('');$('#remark').val('');
-                }else {
+                    $('#number').val('');
+                    $('#name').val('');
+                    $('#remark').val('');
+                } else {
                     errorAlert(e.info);
                 }
             })

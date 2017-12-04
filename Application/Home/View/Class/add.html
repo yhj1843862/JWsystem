@@ -11,7 +11,7 @@
                 <span class="c-red">*</span> 名称：
             </label>
             <div class="formControls col-xs-6 col-sm-6">
-                <input type="text" class="input-text" id="name" >
+                <input type="text" class="input-text" id="name">
             </div>
         </div>
 
@@ -20,7 +20,7 @@
                 <span class="c-red">*</span> 编号：
             </label>
             <div class="formControls col-xs-6 col-sm-6">
-                <input type="text" class="input-text" id="number" >
+                <input type="text" class="input-text" id="number">
             </div>
         </div>
         <div class="row cl">
@@ -47,9 +47,13 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span> 入学/毕业时间：</label>
             <div class="formControls col-xs-6 col-sm-6">
-                <input type="text" onfocus="WdatePicker({ readOnly:true, maxDate:'#F{ $dp.$D(\'logmax\')||\'%y-{%M+2}-%d\'}' })" id="logmin" class="input-text Wdate" style="width:120px;">
+                <input type="text"
+                       onfocus="WdatePicker({ readOnly:true, maxDate:'#F{ $dp.$D(\'logmax\')||\'%y-{%M+2}-%d\'}' })"
+                       id="logmin" class="input-text Wdate" style="width:120px;">
                 -
-                <input type="text" onfocus="WdatePicker({ readOnly:true, minDate:'#F{ $dp.$D(\'logmin\')}',maxDate:'{%y+4}-{%M+2}-%d' })" id="logmax" class="input-text Wdate" style="width:120px;">
+                <input type="text"
+                       onfocus="WdatePicker({ readOnly:true, minDate:'#F{ $dp.$D(\'logmin\')}',maxDate:'{%y+4}-{%M+2}-%d' })"
+                       id="logmax" class="input-text Wdate" style="width:120px;">
             </div>
         </div>
 
@@ -69,25 +73,21 @@
 
         $('#role').change(function () {
             var role = $(this).val();
-            $.post("{:U('Home/User/ajax_user_list')}", {role:role}, function (e) {
+            $.post("{:U('Home/User/ajax_user_list')}", {role: role}, function (e) {
                 var d = e.list;
-                if (d.length)
-                {
-                    var  str = '';
-                    for (var i in d)
-                    {
+                if (d.length) {
+                    var str = '';
+                    for (var i in d) {
                         var f = d[i];
-                        str += '<option value="'+f.user_id+'">'+ f.nickname + "("+ f.mobile +")" +'</option>';
+                        str += '<option value="' + f.user_id + '">' + f.nickname + "(" + f.mobile + ")" + '</option>';
                     }
                     $('#choose').nextAll().remove();
                     $('#manager').html($('#manager').html() + str);
-                }else {
+                } else {
                     errorAlert('该角色下暂无用户');
                 }
             })
         });
-
-
 
         var profession_id = "{$profession_id}";
 
@@ -97,12 +97,18 @@
             var logmin = $('#logmin').val();
             var logmax = $('#logmax').val();
             var uid = $('#manager').val();
-            $.post('', {n:number, name: name,logmin:logmin,logmax:logmax,uid:uid,pid:profession_id}, function (e) {
-                if(e.status)
-                {
+            $.post('', {
+                n: number,
+                name: name,
+                logmin: logmin,
+                logmax: logmax,
+                uid: uid,
+                pid: profession_id
+            }, function (e) {
+                if (e.status) {
                     successAlert(e.info);
                     window.parent.location.reload();
-                }else {
+                } else {
                     errorAlert(e.info);
                 }
             })

@@ -5,6 +5,7 @@
  * Date: 17/11/23
  * Time: 上午9:54
  */
+
 namespace Home\Controller;
 
 class IndexController extends BaseController
@@ -12,7 +13,7 @@ class IndexController extends BaseController
     public function index()
     {
         U('Home/User/id');
-        $this->assign('page_title','后台首页');
+        $this->assign('page_title', '后台首页');
         $this->display();
     }
 }

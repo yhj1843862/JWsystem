@@ -60,32 +60,6 @@
 
 <aside class="Hui-aside">
     <div class="menu_dropdown bk_2">
-        <dl id="menu-article">
-            <dt>
-                <i class="Hui-iconfont">&#xe616;</i> 资讯管理
-                <i class="Hui-iconfont menu_dropdown-arrow Hui-iconfont-arrow2-bottom"></i>
-            </dt>
-            <dd>
-                <ul>
-                    <li>
-                        <a data-href="http://www.baidu.com" data-title="资讯管理" href="javascript:void(0)">资讯管理</a>
-                    </li>
-                </ul>
-            </dd>
-        </dl>
-        <dl id="menu-picture">
-            <dt>
-                <i class="Hui-iconfont">&#xe613;</i> 图片管理
-                <i class="Hui-iconfont menu_dropdown-arrow Hui-iconfont-arrow2-bottom"></i>
-            </dt>
-            <dd>
-                <ul>
-                    <li>
-                        <a data-href="picture-list.html" data-title="图片管理" href="javascript:void(0)">图片管理</a>
-                    </li>
-                </ul>
-            </dd>
-        </dl>
         <dl id="menu-member">
             <dt>
                 <i class="Hui-iconfont">&#xe60d;</i> 用户管理
@@ -123,9 +97,23 @@
                 </ul>
             </dd>
         </dl>
+        <dl id="menu-duty">
+            <dt>
+                <i class="Hui-iconfont Hui-iconfont-home"></i> 值班管理
+                <i class="Hui-iconfont menu_dropdown-arrow Hui-iconfont-arrow2-bottom"></i>
+            </dt>
+            <dd>
+                <ul>
+                    <li>
+                        <a data-href="<?php echo U('Home/Duty/lists');?>" data-title="值班人员列表" href="javascript:void(0)">值班人员列表</a>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
 
     </div>
 </aside>
+
 <div class="dislpayArrow hidden-xs">
     <a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a>
 </div>

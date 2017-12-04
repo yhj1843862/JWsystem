@@ -1,4 +1,3 @@
-<script src="../../../../static/ui/ui.admin/js/H-ui.admin.js"></script>
 <include file="Common/header"/>
 <style>
     a {
@@ -9,9 +8,9 @@
 <div class="page-container">
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l">
-            <a class="btn btn-primary" title="添加学科" data-href="{:U('add')}" onclick="openPage(this)"
-               href="javascript:;">
-                <i class="Hui-iconfont Hui-iconfont-add"></i> 添加学科
+            <a class="btn btn-primary" data-height="300" title="添加值班人员" data-href="{:U('add_user')}"
+               onclick="openPage(this)" href="javascript:;">
+                <i class="Hui-iconfont Hui-iconfont-add"></i> 添加值班人员
             </a>
         </span>
         <span class="r">
@@ -26,16 +25,21 @@
             <thead>
             <tr class="text-c">
                 <th>编号</th>
-                <th>学科名称</th>
-                <th>介绍</th>
+                <th>姓名</th>
+                <th>手机号</th>
+                <th>邮箱</th>
+                <th>排序</th>
+
             </tr>
             </thead>
             <tbody>
-            <volist name="data.list" id="v">
+            <volist name="list" id="v">
                 <tr class="text-c">
-                    <td>{$v.subject_number}</td>
-                    <td><a href="">{$v.subject_name}</a></td>
-                    <td>{$v.subject_remark}</td>
+                    <td>{$v.number}</td>
+                    <td><a>{$v.nickname}</a></td>
+                    <td>{$v.mobile}</td>
+                    <td>{$v.email}</td>
+                    <td>{$v.ranking}</td>
                 </tr>
             </volist>
             </tbody>

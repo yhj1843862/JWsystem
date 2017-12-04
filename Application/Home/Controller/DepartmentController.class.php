@@ -19,12 +19,12 @@ class DepartmentController extends BaseController
     {
         $m = M('Department');
         $num = 4;
-        $page = I('get.p',1);
-        $list = $m->order('department_id')->page($page.','.$num)->select();
-        $count      = $m->count();
-        $Page       = new \Think\myPage($count,$num);
-        $show       = $Page->show();
-        $this->assign('data', ['list'=>$list, 'page'=>$show]);
+        $page = I('get.p', 1);
+        $list = $m->order('department_id')->page($page . ',' . $num)->select();
+        $count = $m->count();
+        $Page = new \Think\myPage($count, $num);
+        $show = $Page->show();
+        $this->assign('data', ['list' => $list, 'page' => $show]);
         $this->display();
     }
 
@@ -33,88 +33,78 @@ class DepartmentController extends BaseController
      */
     public function add()
     {
-        if(IS_POST)
-        {
+        if (IS_POST) {
             $name = I('post.name', '');
             $number = I('post.n', '');
             $remark = I('post.r', '');
             //todo 验证数据
-            if(mb_strlen($name,'UTF-8') > 30 || mb_strlen($name,'UTF-8') < 2)
-            {
-                $this->ajaxReturn(['status'=>0, 'info'=>'院系名称长度应该在2-30之间']);
+            if (mb_strlen($name, 'UTF-8') > 30 || mb_strlen($name, 'UTF-8') < 2) {
+                $this->ajaxReturn(['status' => 0, 'info' => '院系名称长度应该在2-30之间']);
             }
 
-            if(mb_strlen($number,'UTF-8') > 15 || mb_strlen($number,'UTF-8') < 1)
-            {
-                $this->ajaxReturn(['status'=>0, 'info'=>'编号长度应该在1-15之间']);
+            if (mb_strlen($number, 'UTF-8') > 15 || mb_strlen($number, 'UTF-8') < 1) {
+                $this->ajaxReturn(['status' => 0, 'info' => '编号长度应该在1-15之间']);
             }
-            if(mb_strlen($remark,'UTF-8') > 255 || mb_strlen($remark,'UTF-8') < 10)
-            {
-                $this->ajaxReturn(['status'=>0, 'info'=>'院系介绍长度应该在10-255之间']);
+            if (mb_strlen($remark, 'UTF-8') > 255 || mb_strlen($remark, 'UTF-8') < 10) {
+                $this->ajaxReturn(['status' => 0, 'info' => '院系介绍长度应该在10-255之间']);
             }
             $m = M('Department');
             //验证重名现象
-            if($m->where(['department_name'=>$name])->find())
-            {
-                $this->ajaxReturn(['status'=>0, 'info'=>'"'.$name.'"已存在']);
+            if ($m->where(['department_name' => $name])->find()) {
+                $this->ajaxReturn(['status' => 0, 'info' => '"' . $name . '"已存在']);
             }
 
-            if($m->where(['department_number'=>$number])->find())
-            {
-                $this->ajaxReturn(['status'=>0, 'info'=>'编号"'.$number.'"已存在']);
+            if ($m->where(['department_number' => $number])->find()) {
+                $this->ajaxReturn(['status' => 0, 'info' => '编号"' . $number . '"已存在']);
             }
 
 
             //将数据插入到数据库
-            if($m->add(['department_name'=>$name, 'department_number'=>$number, 'department_remark'=>$remark]))
-            {
-                $this->ajaxReturn(['status'=>1, 'info'=>'成功']);
-            }else{
-                $this->ajaxReturn(['status'=>0, 'info'=>'失败']);
+            if ($m->add(['department_name' => $name, 'department_number' => $number, 'department_remark' => $remark])) {
+                $this->ajaxReturn(['status' => 1, 'info' => '成功']);
+            } else {
+                $this->ajaxReturn(['status' => 0, 'info' => '失败']);
             }
         }
-        if(IS_GET)
-        {
+        if (IS_GET) {
             $this->display();
         }
     }
 
     public function ajax_profession_list()
     {
-        if(IS_POST)
-        {
+        if (IS_POST) {
             //获取某个院系下的专业列表
-            $depart = I('post.id',0);
-            $num = I('post.num',999999);
-            $page = I('post.p',1);
+            $depart = I('post.id', 0);
+            $num = I('post.num', 999999);
+            $page = I('post.p', 1);
             $_GET['p'] = $page;
             $where['department'] = $depart;
-            $this->ajaxReturn($this->profession_list($where,$page,$num));
+            $this->ajaxReturn($this->profession_list($where, $page, $num));
         }
     }
 
-    protected function profession_list($where,$page,$num)
+    protected function profession_list($where, $page, $num)
     {
         $m = new \Common\ViewModel\ProfessionViewModel();
-        $list = $m->where($where)->page($page.','.$num)->select();
-        $count      = $m->where($where)->count();
-        $Page       = new \Think\myPage($count,$num);
-        $show       = $Page->show();
-        return ['list'=>$list,'page'=>$show];
+        $list = $m->where($where)->page($page . ',' . $num)->select();
+        $count = $m->where($where)->count();
+        $Page = new \Think\myPage($count, $num);
+        $show = $Page->show();
+        return ['list' => $list, 'page' => $show];
     }
 
     public function ajax_profession_list_html()
     {
-        $depart = I('post.id',0);
-        $num = I('post.num',999999);
-        $page = I('post.p',1);
+        $depart = I('post.id', 0);
+        $num = I('post.num', 999999);
+        $page = I('post.p', 1);
         $_GET['p'] = $page;
         $where['department'] = $depart;
-        $data = $this->profession_list($where,$page,$num);
+        $data = $this->profession_list($where, $page, $num);
         $str = '';
-        foreach ($data['list'] as $k=>$v)
-        {
-            $str .= '<option value="'.$v['profession_id'].'">'.$v['profession_name'].'</option>';
+        foreach ($data['list'] as $k => $v) {
+            $str .= '<option value="' . $v['profession_id'] . '">' . $v['profession_name'] . '</option>';
         }
         $this->ajaxReturn($str);
     }
