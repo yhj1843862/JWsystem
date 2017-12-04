@@ -2,20 +2,18 @@
 /**
  * Created by PhpStorm.
  * User: qingyun
- * Date: 17/12/1
- * Time: 下午7:38
+ * Date: 17/11/24
+ * Time: 上午11:47
  */
 
-
 /**
- *
- * 验证输入的邮箱是否合法
- * @param $email  邮箱地址
+ * 验证邮箱是否合法
+ * @param $email 邮箱地址
  * @return bool
  */
 function check_email($email)
 {
-    if(preg_match('/\w+@\w+\.\W{2,10}/',$email))
+    if(preg_match('/\w+@\w+\.\w{2,10}/',$email))
     {
         return true;
     }else{
@@ -24,20 +22,19 @@ function check_email($email)
 }
 
 /**
- * 验证手机是否合法
+ * 验证手机号是否合法
  * @param $mobile
  * @return bool
  */
 function check_mobile($mobile)
 {
-    if(preg_match('/1[3,4,5,7,8,9]\d{9}/',$mobile))
+    if(preg_match('/1[3,5,7,8,9]\d{9}/',$mobile))
     {
         return true;
     }else{
         return false;
     }
 }
-
 
 /** * 检验身份证是否合法
  * @param $id_card 身份证号码
@@ -87,7 +84,32 @@ function id_card_available($id_card)
 }
 
 /**
- * 根据身份证获取性别
+ * 计算身份证校验码，根据国家标准GB 11643-1999
+ * @param $id_card_base 身份证前17位
+ * @return bool|string false或者校验码
+ */
+function get_verify_bit($id_card_base)
+{
+    if (strlen($id_card_base) != 17)
+    {
+        return false;
+    }
+    //加权因子
+    $factor = array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2);
+    //校验码对应值
+    $verify_number_list = array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2');
+    $checksum = 0;
+    for ($i = 0; $i < strlen($id_card_base); $i++)
+    {
+        $checksum += substr($id_card_base, $i, 1) * $factor[$i];
+    }
+    $mod = $checksum % 11;
+    $verify_number = $verify_number_list[$mod];
+    return $verify_number;
+}
+
+/**
+ * 根据身份证号获取性别
  * @param $id_card
  * @return bool|int
  */
@@ -98,7 +120,7 @@ function get_sex_by_id_card($id_card)
         return false;
     }
     $num = $id_card{16};
-    if($num % 2 == 0)
+    if ($num % 2 == 0)
     {
         return 0;
     }else{
@@ -108,27 +130,22 @@ function get_sex_by_id_card($id_card)
 
 /**
  * 将身份证号的某些位置的内容替换成特殊字符
- * @param $id_card    身份证号
- * @param int $start  开始替换的字符位
- * @param int $num    替换的数量
- * @param string $str 替换成的字符串
- * @return string     替换后的字符串
+ * @param $id_card 身份证号
+ * @param $start 其实替换的字符位
+ * @param $num 替换的数量
+ * @param $str 替换成的字符
+ * @return string 替换后的字符串
  */
-function hide_id_card($id_card,$start=12,$num=6,$str='*')
+function hide_id_card($id_card,$start=12,$num=6, $str='*')
 {
-    $tmp ='';
-    for($i=0;$i<$num;$i++){
+    $tmp = '';
+    for ($i =0; $i<$num; $i++)
+    {
         $tmp .= $str;
     }
     return substr($id_card,0,$start).$tmp.substr($id_card,$start+$num);
 }
 
-
-/**
- * where 条件的几种情况
- * @param $where
- * @return bool|string
- */
 function format_where($where)
 {
     if(!is_array($where))
@@ -136,17 +153,14 @@ function format_where($where)
         return false;
     }
     $whereString = ' WHERE 1 ';
-    foreach ($where as $k => $v)
+    foreach ($where as $k=>$v)
     {
-
         if(!is_array($v))
         {
-            // ['name'=>'一路向北' ]
-            $whereString .= ' AND `'. $k .'`="'.$v.'"';
+            $whereString .= ' AND `'.$k.'`="'.$v.'"';
         }else{
             if(is_array($v[0]))
             {
-                //['name'=>['and','小火锅','一路向北']]
                 foreach ($v as $vv)
                 {
                     $whereString .= ' AND '.$k.$vv[0].'"'.$vv[1].'"';
@@ -154,7 +168,6 @@ function format_where($where)
             }else{
                 if(is_array($v[1]))
                 {
-                    //['name'=>['and',['小火锅','一路向北']]]
                     $whereString .= ' AND (';
                     foreach ($v[1] as $kk=>$vv)
                     {
@@ -162,10 +175,10 @@ function format_where($where)
                     }
                     $whereString = rtrim($whereString, $v[0]) .')';
                 }else{
-                    //srepos(字符首次出现的位置)
-                    if(strpos($v[1],',')){
+                    if(strpos( $v[1],','))
+                    {
                         $whereString .= ' AND `'.$k.'` '.$v[0].' ('.$v[1].')';
-                    }else{
+                    }else {
                         $whereString .= ' AND `'.$k.'` '.$v[0].' ("'.$v[1].'")';
                     }
                 }
@@ -175,54 +188,54 @@ function format_where($where)
     return $whereString;
 }
 
-
 /**
- * @param $excel_path     excel 文件路径
- * @param int $start_row  从第几行开始读取数据
- * @param array $fields   每个列对应的字段
- * @return bool
+ * @param $excel_path excel文件路径
+ * @param int $start_row 从第几行开始读取数据
+ * @param array $fields 每个列对应的字段
+ * @return array|bool|mixed
  */
-function read_excel($excel_path,$start_row =1,array $fields)
+function read_excel($excel_path,$start_row = 1, array $fields)
 {
     vendor('PHPExcel.PHPExcel');
     $PHPReader = new PHPExcel_Reader_Excel2007();
     if(!$PHPReader->canRead($excel_path))
     {
-        //刚开始尝试使用高版本的读取,如果不能读,尝试使用低版本读取
+        //刚开始尝试使用高版本的读取，如果不能读，则尝试使用低版本格式的读取
         $PHPReader = new PHPExcel_Reader_Excel5();
         if(!$PHPReader->canRead($excel_path))
         {
             return false;
         }
     }
-    //加载 excel文件
+    //加载excel文件
     $e = $PHPReader->load($excel_path);
     //获取所有工作表
     $sheets = $e->getAllSheets();
     $data = [];
-    //遍历所有的工作表
+    //遍历所有工作表
     foreach ($sheets as $k=>$v)
     {
         $rowNum = $v->getHighestRow();
-        $column =my_ord($v->getHighestColumn());
-        for($i = $start_row;$i<= $rowNum;$i++)
+        $column = my_ord($v->getHighestColumn());
+        for ($i = $start_row; $i <= $rowNum; $i++)
         {
             $s = $i-$start_row;
-            for($j = 1;$j<=$column;$j++)
+            for ($j=1; $j<=$column; $j++)
             {
-                //获取每个单元格的对象
+                //获取每一个方格对象
                 $cell = $v->getCell(my_chr($j).$i);
-                //读取单元格的内容
+                //读取方格里面的内容
                 $value = $cell->getValue();
                 if(!empty($value))
                 {
                     $field = $fields[$j-1];
-                    if(!empty($field))
+                    if(empty($field))
                     {
                         $data[$k][$s][] = $value;
                     }else{
                         $data[$k][$s][$field] = $value;
                     }
+
                 }
             }
         }
@@ -235,20 +248,19 @@ function read_excel($excel_path,$start_row =1,array $fields)
 }
 
 /**
- * 将最多两位字母转成数字(根据 ASCII码)
- * 比如: A 转换成 1,
- * AB 转换成 28, DF 转换成110
+ * 将最多两位字母转成数字（根据ascii码）
+ * 比如：A 转成 1 , AB 转成 28 DF 转成110
  * @param $str
  * @return int
  */
 function my_ord($str)
 {
-    if(strlen($str) ==1)
+    if(strlen($str) == 1)
     {
         $str = '@'.$str;
     }
     $str = strtoupper($str);
-    $column = (ord($str{0}) -64 ) * 26 + ord($str{1}) - 64;
+    $column = (ord($str{0}) - 64 ) * 26 + ord($str{1}) - 64;
     return $column;
 }
 
@@ -264,10 +276,10 @@ function my_chr($num)
         return false;
     }
     $first_num = floor($num / 26);
-    $second_num = $num % 26 ;
-    if($second_num == 0 )
+    $second_num = $num % 26;
+    if($second_num == 0)
     {
-        $first_num = $first_num -1;
+        $first_num = $first_num - 1;
         $second_num = 26;
     }
     $first = chr($first_num + 64);

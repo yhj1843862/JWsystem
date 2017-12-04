@@ -25,4 +25,16 @@ class AreaController extends  BaseController
         $list = M('Area')->where(['parent_id'=>$pid])->select();
         $this->ajaxReturn($list);
     }
+
+    public function ajax_path_info()
+    {
+        if(IS_POST)
+        {
+            $id= I('post.id',0);
+            $path = M('Area')->where(['area_id'=>$id])->getField('path');
+            $list = explode('-',$path.$id);
+            $list = M('Area')->where(['area_id'=>['in',$list]])->select();
+            $this->ajaxReturn($list);
+        }
+    }
 }
