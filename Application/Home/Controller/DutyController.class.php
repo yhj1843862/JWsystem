@@ -9,6 +9,7 @@ namespace Home\Controller;
 class DutyController extends BaseController
 {
     protected $dutys = [1, 2, 3, 4, 5];
+    protected $duty_start_time = '7:00:00';
 
     /**
      * 值班人员列表
@@ -114,6 +115,8 @@ class DutyController extends BaseController
             $i++;
         }
         //todo 考虑调班的情况
+        M('duty_change')->select();
+
         F('plan',$plans);
         $this->assign('plan', $plans);
         $this->display();
@@ -121,18 +124,41 @@ class DutyController extends BaseController
 
     public function change_duty()
     {
-        $date = I('get.d','');
-        $duty_list = F('plan');
-        //不能和要调班的同一天对调
-        unset($duty_list[$date]);
-        foreach ($duty_list as $key => $item) {
-            //不能和自己的值班对调
-            if ($item['id_card'] == $this->user_info['id_card'])
-            {
-                unset($duty_list[$key]);
+        if(IS_GET)
+        {
+            $date = I('get.d','');
+            $duty_list = F('plan');
+            //不能和要调班的同一天对调
+            unset($duty_list[$date]);
+            foreach ($duty_list as $key => $item) {
+                //不能和自己的值班对调
+                if ($item['id_card'] == $this->user_info['id_card'])
+                {
+                    unset($duty_list[$key]);
+                }
             }
+            $this->assign('plan', $duty_list);
+            $this->assign('o',$date);
+            $this->display();
         }
-        $this->assign('plan', $duty_list);
-        $this->display();
+
+        if(IS_POST)
+        {
+            $old_time = I('post.old','');
+            $new_time = I('post.n','');
+            if(empty($new_time) || empty($old_time))
+            {
+                $this->ajaxReturn(['status'=>0, 'info'=>'时间信息有误']);
+            }
+            //调班的时间必须为没有过的时间
+            //$critical = strtotime(date('Y-m-d ').$this->duty_start_time);
+            if(M('duty_change')->add(['old_time'=>$old_time, 'new_time'=>$new_time, 'status'=>1]))
+            {
+                $this->ajaxReturn(['status'=>1, 'info'=>'成功']);
+            }else{
+                $this->ajaxReturn(['status'=>0, 'info'=>'失败']);
+            }
+
+        }
     }
 }

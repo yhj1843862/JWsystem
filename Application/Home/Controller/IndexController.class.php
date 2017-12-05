@@ -16,4 +16,9 @@ class IndexController extends BaseController
         $this->assign('page_title', '后台首页');
         $this->display();
     }
+
+    public function welcome()
+    {
+        $this->display();
+    }
 }

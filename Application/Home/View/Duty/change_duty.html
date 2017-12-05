@@ -30,10 +30,8 @@
                 <td>{$v.mobile}</td>
                 <td>{$v.email}</td>
                 <td>{$v.ranking}</td>
-                <td>
-                    <a onClick="openPage(this)" data-href="{:U('')}" href="javascript:;" title="调班">
-                        调班
-                    </a>
+                <td class="pointer change" data-date="{$k}">
+                    调一下
                 </td>
             </tr>
             </foreach>
@@ -43,5 +41,24 @@
     </div>
 </div>
 <include file="Common/footer" />
+<script>
+    $(function () {
+        var o = "{$o}";
+        $('.change').click(function () {
+            var i = $(this);
+            var n = i.attr('data-date');
+            $.post('', {old:o, n:n},function (e) {
+                if(e.status)
+                {
+                    successAlert(e.info);
+                }else{
+                    errorAlert(e.info);
+                }
+            })
+
+
+        });
+    })
+</script>
 </body>
 </html>
