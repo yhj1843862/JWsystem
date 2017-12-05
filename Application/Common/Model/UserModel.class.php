@@ -162,4 +162,25 @@ class UserModel extends Model
         $data['role'] = 1;
         return $this->add_user($data);
     }
+
+    /**
+     * 学生列表（含院系、班级、专业信息）
+     * @param $where
+     * @param int $page
+     * @param int $num
+     * @param string $order
+     * @return array
+     */
+    public function student_list($where,$page = 1, $num =12, $order = 'user_id DESC')
+    {
+        //只查学生
+        $where['role'] = 1;
+        $s = $this->where($where)->order($order)->page($page.','.$num)->select(false);
+        $sql = 'SELECT * FROM (SELECT C.*,D.`department_name`,D.`department_number` FROM (SELECT A.*,B.`class_name`,B.`class_number`,B.`start_time`,B.`end_time` FROM ('.$s.') AS A LEFT JOIN `jw_class` AS B ON B.`class_id`=A.`class` ) AS C LEFT JOIN `jw_department` AS D ON C.`department`=D.`department_id`) AS E LEFT JOIN `jw_profession` AS F ON E.`profession`=F.`profession_id`';
+        $list = $this->query($sql);
+        $count      = $this->where($where)->count();
+        $Page       = new \Think\myPage($count,$num);
+        $show       = $Page->show();
+        return ['list'=>$list, 'page'=>$show,'sql'=>$sql];
+    }
 }

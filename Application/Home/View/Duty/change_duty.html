@@ -50,7 +50,7 @@
             $.post('', {old:o, n:n},function (e) {
                 if(e.status)
                 {
-                    successAlert(e.info);
+                    window.parent.location.reload();
                 }else{
                     errorAlert(e.info);
                 }

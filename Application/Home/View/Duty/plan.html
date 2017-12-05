@@ -1,21 +1,33 @@
 <!DOCTYPE HTML>
 <html>
-<include file="Common/header" />
+<include file="Common/header"/>
 <style>
-    a{
-        text-decoration:none;
+    a {
+        text-decoration: none;
     }
 </style>
 <body>
 <div class="page-container">
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l">
-            <a class="btn btn-primary" data-height="300" title="添加值班人员" data-href="{:U('add_user')}" onclick="openPage(this)" href="javascript:;">
-                <i class="Hui-iconfont Hui-iconfont-add"></i> 添加值班人员
+            <a class="btn btn-primary" data-height="300" title="添加学情信息" data-href="{:U('add_user')}"
+               onclick="openPage(this)" href="javascript:;">
+                <i class="Hui-iconfont Hui-iconfont-add"></i> 值班学情
+            </a>
+
+            <a class="btn btn-danger" title="添加违纪信息" data-width="1200" data-href="{:U('Home/Disorder/add_student')}"
+               onclick="openPage(this)" href="javascript:;">
+                <i class="Hui-iconfont Hui-iconfont-add"></i> 违纪情况
+            </a>
+
+            <a class="btn btn-warning" data-height="300" title="添加学生问题" data-href="{:U('add_user')}"
+               onclick="openPage(this)" href="javascript:;">
+                <i class="Hui-iconfont Hui-iconfont-add"></i> 学生问题
             </a>
         </span>
         <span class="r">
-            <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
+            <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
+               href="javascript:location.replace(location.href);" title="刷新">
                 <i class="Hui-iconfont Hui-iconfont-huanyipi"></i>
             </a>
         </span>
@@ -25,36 +37,34 @@
             <thead>
             <tr class="text-c">
                 <th>值班日期</th>
-                <th>编号</th>
+                <th>值班人员编号</th>
                 <th>姓名</th>
                 <th>手机号</th>
                 <th>邮箱</th>
-                <th>排序</th>
                 <th>调班</th>
-
             </tr>
             </thead>
             <tbody>
-            <foreach name="plan" item="v" key="k" >
-            <tr class="text-c">
-                <td>{$k}</td>
-                <td>{$v.number}</td>
-                <td><a>{$v.nickname}</a></td>
-                <td>{$v.mobile}</td>
-                <td>{$v.email}</td>
-                <td>{$v.ranking}</td>
-                <td>
-                    <if condition="$v['id_card'] eq $user_info['id_card']">
-                        <a onClick="openPage(this)" data-href="{:U('change_duty',['d'=>$k])}" href="javascript:;" title="调班">调班</a>
-                    </if>
-                </td>
-            </tr>
+            <foreach name="plan" item="v" key="k">
+                <tr class="text-c">
+                    <td>{$k}</td>
+                    <td>{$v.number}</td>
+                    <td><a>{$v.nickname}</a></td>
+                    <td>{$v.mobile}</td>
+                    <td>{$v.email}</td>
+                    <td>
+                        <if condition="$v['id_card'] eq $user_info['id_card']">
+                            <a onClick="openPage(this)" data-href="{:U('change_duty',['d'=>$k])}" href="javascript:;"
+                               title="调班（{$k}）">调班</a>
+                        </if>
+                    </td>
+                </tr>
             </foreach>
             </tbody>
         </table>
         {$data.page}
     </div>
 </div>
-<include file="Common/footer" />
+<include file="Common/footer"/>
 </body>
 </html>

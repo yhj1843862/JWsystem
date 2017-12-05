@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<include file="Common/header"/>
+<body>
+<article class="page-container">
+    <form action="" method="post" class="form form-horizontal" id="form-member-add">
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>违纪时间：
+            </label>
+            <div class="formControls col-xs-4 col-sm-7">
+                <input type="text" onfocus="WdatePicker({ readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss' })"
+                       class="input-text" name="t">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>违纪说明：</label>
+            <div class="formControls col-xs-4 col-sm-7">
+                <textarea class="textarea" name="remark" placeholder="违纪说明...最少输入10个字符"></textarea>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-6 col-sm-6 col-xs-offset-4 col-sm-offset-3">
+                <button id="subBtn" class="btn btn-primary noradius" type="submit">&nbsp;&nbsp;添加&nbsp;&nbsp;</button>
+            </div>
+        </div>
+
+    </form>
+</article>
+
+<include file="Common/footer"/>
+<script type="text/javascript" src="/20171127/static/ui/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+</body>
+</html>

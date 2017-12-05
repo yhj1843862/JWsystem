@@ -78,7 +78,8 @@ class DutyController extends BaseController
         $user_list = $this->duty_user_list();
         //todo 等做完值班日志后，从日志中可以读取到
         $prev_user = 32;
-        //我们先要将当前周期中，已值过班的用户排除掉
+        //我们先要将当前周期中，
+        //已值过班的用户排除掉
         foreach ($user_list as $v)
         {
             if($v['user_id'] == $prev_user)
@@ -115,8 +116,22 @@ class DutyController extends BaseController
             $i++;
         }
         //todo 考虑调班的情况
-        M('duty_change')->select();
-
+        $today = date('Y-m-d').' 00:00:00';
+        $where['new_time'] = ['egt',$today];
+        $where['old_time'] = ['egt',$today];
+        $where['status'] = 1;
+        $change_list = M('duty_change')->where($where)->getField('old_time,new_time');
+//        print_r($change_list);
+//        print_r($plans);
+        foreach ($change_list as $k=>$v)
+        {
+            $kk = substr($k,0,10);
+            $vv = substr($v,0,10);
+            $tmp = $plans[$kk];
+            $plans[$kk] = $plans[$vv];
+            $plans[$vv] = $tmp;
+        }
+//        print_r($plans);
         F('plan',$plans);
         $this->assign('plan', $plans);
         $this->display();

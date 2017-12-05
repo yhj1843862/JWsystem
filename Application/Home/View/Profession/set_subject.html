@@ -36,8 +36,13 @@
                         <td class="cancel"></td>
                     </if>
                     <td>
-                        <button type="button" class="btn btn-primary size-MINI noradius elective">选修</button>
-                        <button type="button" class="btn btn-warning size-MINI noradius necessary">必修</button>
+                        <if condition="$v['selected']">
+                            <button type="button" class="btn btn-primary size-MINI noradius elective disabled">选修</button>
+                            <button type="button" class="btn btn-warning size-MINI noradius necessary disabled">必修</button>
+                            <else/>
+                            <button type="button" class="btn btn-primary size-MINI noradius elective">选修</button>
+                            <button type="button" class="btn btn-warning size-MINI noradius necessary">必修</button>
+                        </if>
                     </td>
                 </tr>
             </volist>
