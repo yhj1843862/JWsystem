@@ -1,23 +1,21 @@
 <!DOCTYPE HTML>
 <html>
-<include file="Common/header"/>
+<include file="Common/header" />
 <style>
-    a {
-        text-decoration: none;
+    a{
+        text-decoration:none;
     }
 </style>
 <body>
 <div class="page-container">
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l">
-            <a class="btn btn-primary" data-height="300" title="添加值班人员" data-href="{:U('add_user')}"
-               onclick="openPage(this)" href="javascript:;">
+            <a class="btn btn-primary" data-height="300" title="添加值班人员" data-href="{:U('add_user')}" onclick="openPage(this)" href="javascript:;">
                 <i class="Hui-iconfont Hui-iconfont-add"></i> 添加值班人员
             </a>
         </span>
         <span class="r">
-            <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
-               href="javascript:location.replace(location.href);" title="刷新">
+            <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
                 <i class="Hui-iconfont Hui-iconfont-huanyipi"></i>
             </a>
         </span>
@@ -35,19 +33,19 @@
             </thead>
             <tbody>
             <volist name="list" id="v">
-                <tr class="text-c">
-                    <td>{$v.number}</td>
-                    <td><a>{$v.nickname}</a></td>
-                    <td>{$v.mobile}</td>
-                    <td>{$v.email}</td>
-                    <td>{$v.ranking}</td>
-                </tr>
+            <tr class="text-c">
+                <td>{$v.number}</td>
+                <td><a>{$v.nickname}</a></td>
+                <td>{$v.mobile}</td>
+                <td>{$v.email}</td>
+                <td>{$v.ranking}</td>
+            </tr>
             </volist>
             </tbody>
         </table>
         {$data.page}
     </div>
 </div>
-<include file="Common/footer"/>
+<include file="Common/footer" />
 </body>
 </html>

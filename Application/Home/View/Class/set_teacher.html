@@ -29,7 +29,7 @@
 </article>
 
 <include file="Common/footer"/>
-<script type="text/javascript" src="/20171127/static/ui/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/static/ui/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script>
     $(function () {
 
@@ -37,15 +37,17 @@
         var sid = "{$subject_id}";
         $('#subBtn').click(function () {
             var teacher = parseInt($('#teacher').val());
-            if (teacher) {
-                $.post('', {cid: cid, sid: sid, tid: teacher}, function (e) {
-                    if (e.status) {
+            if(teacher)
+            {
+                $.post('', {cid:cid,sid:sid,tid:teacher}, function (e) {
+                    if(e.status)
+                    {
                         window.parent.location.reload();
-                    } else {
+                    }else {
                         errorAlert(e.info);
                     }
                 });
-            } else {
+            }else{
                 errorAlert('请选择正确的教师');
             }
 

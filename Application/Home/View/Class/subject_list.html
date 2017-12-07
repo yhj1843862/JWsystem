@@ -1,8 +1,9 @@
-<script src="../../../../static/ui/ui.admin/js/H-ui.admin.js"></script>
-<include file="Common/header"/>
+<!DOCTYPE HTML>
+<html>
+<include file="Common/header" />
 <style>
-    a {
-        text-decoration: none;
+    a{
+        text-decoration:none;
     }
 </style>
 <body>
@@ -18,27 +19,25 @@
             </thead>
             <tbody>
             <volist name="data.list" id="v">
-                <tr class="text-c">
-                    <td>{$v.subject_number}</td>
-                    <td><a href="">{$v.subject_name}</a></td>
-                    <td>
-                        <if condition="empty($v['number'])">
-                            <a onClick="openPage(this)"
-                               data-href="{:U('Home/Class/set_teacher',['sid'=>$v['subject_id'],'cid'=>$v['class_id']])}"
-                               href="javascript:;" title="添加任课教师 （ {$v.subject_name} )" data-height="300">
-                                <i class="Hui-iconfont Hui-iconfont-user-add"></i>
-                            </a>
-                            <else/>
-                            {$v.nickname}（ {$v.mobile} ）
-                        </if>
-                    </td>
-                </tr>
+            <tr class="text-c">
+                <td>{$v.subject_number}</td>
+                <td><a href="">{$v.subject_name}</a></td>
+                <td>
+                    <if condition="empty($v['number'])">
+                        <a onClick="openPage(this)" data-href="{:U('Home/Class/set_teacher',['sid'=>$v['subject_id'],'cid'=>$v['class_id']])}" href="javascript:;" title="添加任课教师 （ {$v.subject_name} )" data-height="300">
+                            <i class="Hui-iconfont Hui-iconfont-user-add"></i>
+                        </a>
+                        <else/>
+                        {$v.nickname}（ {$v.mobile} ）
+                    </if>
+                </td>
+            </tr>
             </volist>
             </tbody>
         </table>
         {$data.page}
     </div>
 </div>
-<include file="Common/footer"/>
+<include file="Common/footer" />
 </body>
 </html>

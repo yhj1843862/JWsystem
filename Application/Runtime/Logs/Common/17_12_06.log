@@ -1,0 +1,24 @@
+[ 2017-12-06T22:07:19+08:00 ] 127.0.0.1 /20171127/index.php/static/ui/ui.admin/js/H-ui.admin.js
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000189s ]
+ERR: 无法加载模块:Static
+
+[ 2017-12-06T22:07:22+08:00 ] 127.0.0.1 /20171127/index.php/static/ui/ui.admin/js/H-ui.admin.js
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000007s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000167s ]
+ERR: 无法加载模块:Static
+
+[ 2017-12-06T22:07:26+08:00 ] 127.0.0.1 /20171127/index.php/static/ui/ui.admin/js/H-ui.admin.js
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000007s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000169s ]
+ERR: 无法加载模块:Static
+
+[ 2017-12-06T22:23:54+08:00 ] 127.0.0.1 /20171127/index.php/static/ui/ui.admin/js/H-ui.admin.js
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000181s ]
+ERR: 无法加载模块:Static
+

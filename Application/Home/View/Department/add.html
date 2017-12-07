@@ -11,7 +11,7 @@
                 <span class="c-red">*</span> 名称：
             </label>
             <div class="formControls col-xs-4 col-sm-5">
-                <input type="text" class="input-text" id="name">
+                <input type="text" class="input-text" id="name" >
             </div>
         </div>
 
@@ -21,15 +21,14 @@
                 <span class="c-red">*</span> 编号：
             </label>
             <div class="formControls col-xs-4 col-sm-5">
-                <input type="text" class="input-text" id="number">
+                <input type="text" class="input-text" id="number" >
             </div>
         </div>
 
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">院系介绍：</label>
             <div class="formControls col-xs-4 col-sm-5">
-                <textarea class="textarea" id="remark" placeholder="院系的介绍...10-255个字符"
-                          onKeyUp="countStringLength(this,10,255)"></textarea>
+                <textarea class="textarea" id="remark"  placeholder="院系的介绍...10-255个字符" onKeyUp="countStringLength(this,10,255)"></textarea>
                 <p class="textarea-numberbar">
                     <em class="textarea-length">0</em>/255
                 </p>
@@ -53,15 +52,17 @@
             var number = $('#number').val();
             var name = $('#name').val();
             var remark = $('#remark').val();
-            if (remark.length > 255 || remark.length < 10) {
+            if(remark.length > 255 || remark.length < 10)
+            {
                 errorAlert('院系介绍需要10-255个字符');
                 return false;
             }
-            $.post('', {n: number, name: name, r: remark}, function (e) {
-                if (e.status) {
+            $.post('', {n:number, name: name, r:remark}, function (e) {
+                if(e.status)
+                {
                     successAlert(e.info);
                     window.parent.location.reload();
-                } else {
+                }else {
                     errorAlert(e.info);
                 }
             })

@@ -35,13 +35,14 @@
             <label class="form-label col-xs-4 col-sm-3">
                 <span class="c-red">*</span>违纪人员列表：
             </label>
-            <div class="formControls col-xs-4 col-sm-7" id="ls"></div>
+            <div class="formControls col-xs-4 col-sm-7" id="ls">
+
+            </div>
         </div>
 
         <div class="row cl">
             <div class="col-xs-6 col-sm-6 col-xs-offset-4 col-sm-offset-3">
-                <button id="subBtn" class="btn btn-primary noradius" type="button">&nbsp;&nbsp;添加违纪人员&nbsp;&nbsp;
-                </button>
+                <button id="subBtn" class="btn btn-primary noradius" type="button">&nbsp;&nbsp;添加违纪人员&nbsp;&nbsp;</button>
             </div>
         </div>
 
@@ -59,24 +60,25 @@
         $('#name').keyup(function () {
             var i = $(this);
             var name = i.val();
-            $.post('{:U("Home/User/ajax_student_list")}', {name: name}, function (e) {
+            $.post('{:U("Home/User/ajax_student_list")}',{name:name},function (e) {
                 var ls = e.list;
-                console.log(ls);
-                if (ls.length) {
+                if(ls.length)
+                {
                     var str = '';
-                    for (var j in ls) {
+                    for (var j in ls)
+                    {
                         var tmp = ls[j];
                         str += '<tr class="text-c">' +
-                            '<td>' + tmp.number + '</td>' +
-                            '<td>' + tmp.nickname + '</td>' +
-                            '<td>' + tmp.email + '</td>' +
-                            '<td>' + tmp.mobile + '</td>' +
-                            '<td>' + tmp.department_name + '/' + tmp.profession_name + '/' + tmp.class_name + '</td>' +
-                            '<td class="c-red pointer" data-name="' + tmp.nickname + '" data-id="' + tmp.user_id + '">违纪</td>' +
+                            '<td>'+tmp.number+'</td>' +
+                            '<td>'+tmp.nickname+'</td>' +
+                            '<td>'+tmp.email+'</td>' +
+                            '<td>'+tmp.mobile+'</td>' +
+                            '<td>'+tmp.department_name+'/'+tmp.profession_name+'/'+tmp.class_name+'</td>' +
+                            '<td class="c-red pointer" data-name="'+tmp.nickname+'" data-id="'+tmp.user_id+'">违纪</td>' +
                             '</tr>';
                     }
                     $('#list').html(str);
-                } else {
+                }else{
                     $('#list').html('');
                 }
             });
@@ -85,19 +87,20 @@
         /**
          * 记录违纪人员
          */
-        $(document).on('click', '.pointer', function () {
+        $(document).on('click','.pointer',function () {
             var i = $(this);
             var id = parseInt(i.attr('data-id'));
             var allow = 1;
-            users.forEach(function (v, k, arr) {
-                if (v == id) {
+            users.forEach(function (v,k,arr) {
+                if(v == id){
                     errorAlert('该学生已被添加');
                     allow = 0;
                     return false;
                 }
             });
-            if (allow) {
-                $('#ls').html($('#ls').html() + '<button type="button" class="btn btn-danger size-MINI noradius ml-5">' + i.attr('data-name') + '</button>');
+            if(allow)
+            {
+                $('#ls').html($('#ls').html() + '<button type="button" class="btn btn-danger size-MINI noradius ml-5">'+i.attr('data-name')+'</button>');
                 users.push(id);
             }
         });
@@ -107,11 +110,18 @@
          */
         $('#subBtn').click(function () {
 
-            $.post("", {did: did, users: users}, function (e) {
-                if (e.status) {
-//                    successAlert(e.info);
-                    window.location.href = e.url;
-                } else {
+            $.post("",{did:did, users:users},function (e) {
+                if(e.status)
+                {
+                    layer.confirm('是否继续添加违纪类型？', {
+                        btn: ['继续','不了']
+                    }, function(){
+                        window.location.href = e.url;
+                    }, function(){
+                        window.parent.location.reload();
+                    });
+
+                }else {
                     errorAlert(e.info);
                 }
             });

@@ -1,15 +1,16 @@
-<include file="Common/header"/>
+<!DOCTYPE HTML>
+<html>
+<include file="Common/header" />
 <style>
-    a {
-        text-decoration: none;
+    a{
+        text-decoration:none;
     }
 </style>
 <body>
 <div class="page-container">
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l">
-            <a class="btn btn-primary" title="添加院系" data-width="1200" data-href="{:U('add')}" onclick="openPage(this)"
-               href="javascript:;">
+            <a class="btn btn-primary" title="添加院系" data-width="1200" data-href="{:U('add')}" onclick="openPage(this)" href="javascript:;">
                 <i class="Hui-iconfont Hui-iconfont-add"></i> 添加院系
             </a>
             <if condition="$pid">
@@ -19,8 +20,7 @@
             </if>
         </span>
         <span class="r">
-            <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
-               href="javascript:location.replace(location.href);" title="刷新">
+            <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
                 <i class="Hui-iconfont Hui-iconfont-huanyipi"></i>
             </a>
         </span>
@@ -29,42 +29,40 @@
         <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
             <thead>
             <tr class="text-c">
-                <th>ID</th>
                 <th>编号</th>
                 <th>名称</th>
-                <th width="50%">介绍</th>
+                <th>介绍</th>
                 <th>添加专业</th>
                 <th>下属专业</th>
-
+                <!--<th>性别</th>-->
+                <!--<th>角色</th>-->
+                <!--<th>地区</th>-->
             </tr>
             </thead>
             <tbody>
             <volist name="data.list" id="v">
-                <tr class="text-c">
-                    <td>{$v.department_id}</td>
-                    <td>{$v.department_number}</td>
-                    <td><a href="{:U('')}">{$v.department_name}</a></td>
-                    <td>{$v.department_remark}</td>
-                    <td>
-                        <a onClick="openPage(this)" data-href="{:U('Home/profession/add',['id'=>$v['department_id']])}"
-                           href="javascript:;" title="添加专业（{$v.department_name}）">
-                            <i class="Hui-iconfont Hui-iconfont-add"></i>
-                        </a>
-                    </td>
-                    <td>
-                        <a onClick="openPage(this)" data-width="1200"
-                           data-href="{:U('Home/profession/lists',['id'=>$v['department_id'],'from'=>1])}"
-                           href="javascript:;" title="专业列表（{$v.department_name}）">
-                            <i class="Hui-iconfont Hui-iconfont-ordered-list"></i>
-                        </a>
-                    </td>
-                </tr>
+            <tr class="text-c">
+                <td>{$v.department_number}</td>
+                <td><a href="{:U('')}">{$v.department_name}</a></td>
+                <td>{$v.department_remark}</td>
+                <td>
+                    <a onClick="openPage(this)" data-href="{:U('Home/profession/add',['id'=>$v['department_id']])}" href="javascript:;" title="添加专业（{$v.department_name}）">
+                        <i class="Hui-iconfont Hui-iconfont-add"></i>
+                    </a>
+                </td>
+
+                <td>
+                    <a onClick="openPage(this)" data-width="1200" data-href="{:U('Home/profession/lists',['id'=>$v['department_id'],'from'=>1])}" href="javascript:;" title="专业列表（{$v.department_name}）">
+                        <i class="Hui-iconfont Hui-iconfont-ordered-list"></i>
+                    </a>
+                </td>
+            </tr>
             </volist>
             </tbody>
         </table>
         {$data.page}
     </div>
 </div>
-<include file="Common/footer"/>
+<include file="Common/footer" />
 </body>
 </html>

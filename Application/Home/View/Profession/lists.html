@@ -1,14 +1,15 @@
-<script src="/20171127/static/ui/ui.admin/js/H-ui.admin.js"></script>
-<include file="Common/header"/>
+<!DOCTYPE HTML>
+<html>
+<include file="Common/header" />
 <style>
-    a {
-        text-decoration: none;
+    a{
+        text-decoration:none;
     }
 </style>
 <body>
 <div class="page-container">
     <if condition="empty($from)">
-        <div class="cl pd-5 bg-1 bk-gray mt-20">
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l">
             <if condition="$did">
             <a class="btn btn-warning" href="javascript:window.history.go(-1);">
@@ -16,13 +17,12 @@
             </a>
             </if>
         </span>
-            <span class="r">
-            <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
-               href="javascript:location.replace(location.href);" title="刷新">
+        <span class="r">
+            <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
                 <i class="Hui-iconfont Hui-iconfont-huanyipi"></i>
             </a>
         </span>
-        </div>
+    </div>
     </if>
     <div class="mt-20">
         <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
@@ -39,35 +39,31 @@
             </thead>
             <tbody>
             <volist name="data.list" id="v">
-                <tr class="text-c">
-                    <td>{$v.profession_number}</td>
-                    <td><a href="{:U('')}">{$v.profession_name}</a></td>
-                    <td>{$v.profession_remark}</td>
-                    <td><a href="{:U('',['id'=>$v['department_id'],'from'=>$from])}">{$v.department_name}</a></td>
-                    <td>
-                        <a onClick="openPage(this)" data-height="400"
-                           data-href="{:U('Home/Class/add',['id'=>$v['profession_id']])}" href="javascript:;"
-                           title="添加班级（{$v.department_name}/{$v.profession_name}）">
-                            <i class="Hui-iconfont Hui-iconfont-add"></i>
-                        </a>
-                    </td>
-                    <td>
-                        <a data-href="{:U('Home/Class/class_list',['id'=>$v['profession_id']])}"
-                           data-title="班级列表（{$v.department_name}/{$v.profession_name}）" onClick="Hui_admin_tab(this,2)"><i
-                                class="Hui-iconfont Hui-iconfont-list"></i></a>
-                    </td>
-                    <td>
-                        <a data-href="{:U('Home/Profession/set_subject',['id'=>$v['profession_id']])}"
-                           title="学科配置（{$v.department_name}/{$v.profession_name}）" data-width="1000"
-                           onClick="openPage(this)"><i class="Hui-iconfont Hui-iconfont-system"></i></a>
-                    </td>
-                </tr>
+            <tr class="text-c">
+                <td>{$v.profession_number}</td>
+                <td><a href="{:U('')}">{$v.profession_name}</a></td>
+                <td>{$v.profession_remark}</td>
+                <td><a href="{:U('',['id'=>$v['department_id'],'from'=>$from])}">{$v.department_name}</a></td>
+                <td>
+                    <a onClick="openPage(this)" data-height="400" data-href="{:U('Home/Class/add',['id'=>$v['profession_id']])}" href="javascript:;" title="添加班级（{$v.department_name}/{$v.profession_name}）">
+                        <i class="Hui-iconfont Hui-iconfont-add"></i>
+                    </a>
+                </td>
+                <td>
+                    <a data-href="{:U('Home/Class/class_list',['id'=>$v['profession_id']])}" data-title="班级列表（{$v.department_name}/{$v.profession_name}）" onClick="Hui_admin_tab(this,2)"><i class="Hui-iconfont Hui-iconfont-list"></i></a>
+                </td>
+                <td>
+                    <a data-href="{:U('Home/Profession/set_subject',['id'=>$v['profession_id']])}" title="学科配置（{$v.department_name}/{$v.profession_name}）" data-width="1000" onClick="openPage(this)"><i class="Hui-iconfont Hui-iconfont-system"></i></a>
+                </td>
+
+
+            </tr>
             </volist>
             </tbody>
         </table>
         {$data.page}
     </div>
 </div>
-<include file="Common/footer"/>
+<include file="Common/footer" />
 </body>
 </html>

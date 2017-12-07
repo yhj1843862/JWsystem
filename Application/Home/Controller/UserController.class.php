@@ -48,7 +48,7 @@ class UserController extends BaseController
             $data = I('post.');
             if(!isset($data['department']) || empty($data['department']))
             {
-                $this->ajaxReturn(['status'=>0, 'info'=>'请选择正确的院系信息']);
+            $this->ajaxReturn(['status'=>0, 'info'=>'请选择正确的院系信息']);
             }
 
             if(!isset($data['profession']) || empty($data['profession']))

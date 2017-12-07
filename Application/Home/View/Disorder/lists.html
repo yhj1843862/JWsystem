@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+<include file="Common/header" />
+<style>
+    a{
+        text-decoration:none;
+    }
+</style>
+<body>
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="l">
+            <a class="btn btn-danger" title="添加违纪" data-href="{:U('Home/Disorder/add_student')}" onclick="openPage(this)" href="javascript:;">
+                <i class="Hui-iconfont Hui-iconfont-add"></i> 添加违纪
+            </a>
+            <if condition="!empty($start) || !empty($end)">
+            <a class="btn btn-warning" href="{:U('Home/Disorder/lists')}">
+                <i class="Hui-iconfont Hui-iconfont-chexiao"></i> 返回
+            </a>
+            </if>
+            <form method="get" action="" style="display: inline">
+            <input type="text" onfocus="WdatePicker({ readOnly:true, maxDate:'#F{ $dp.$D(\'logmax\')||\'%y-{%M+2}-%d\'}' })" id="logmin" value="{$start}" name="start" class="input-text Wdate" style="width:120px;">
+                -
+                <input type="text" onfocus="WdatePicker({ readOnly:true, minDate:'#F{ $dp.$D(\'logmin\')}',maxDate:'{%y+4}-{%M+2}-%d' })" id="logmax" value="{$end}" name="end" class="input-text Wdate" style="width:120px;">
+                <button class="btn btn-primary noradius Hui-iconfont Hui-iconfont-search2" type="submit">搜索</button>
+            </form>
+        </span>
+        <span class="r">
+            <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
+                <i class="Hui-iconfont Hui-iconfont-huanyipi"></i>
+            </a>
+        </span>
+    </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+            <thead>
+            <tr class="text-c">
+                <th>编号</th>
+                <th class="text-l">违纪内容</th>
+                <th>违纪时间</th>
+                <th>违纪人员</th>
+                <th>违纪类型</th>
+                <th>添加违纪人员</th>
+                <th>添加违纪类型</th>
+                <th>添加附件</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="data.list" id="v">
+            <tr class="text-c">
+                <td>{$v.id}</td>
+                <td class="text-l">{$v.remark}</td>
+                <td>{$v.disorder_time}</td>
+                <td>
+                    <volist name="v.users" id="vo">
+                        <span class="mr-5">{$vo.nickname}</span>
+                    </volist>
+                </td>
+                <td>
+                    <volist name="v.types" id="vo">
+                        <span class="mr-5">{$vo.type_name}</span>
+                    </volist>
+                </td>
+                <td>
+                    <a class="btn btn-secondary size-S" title="添加违纪信息" data-href="{:U('Home/Disorder/add_student_2',['id'=>$v['id']])}" onclick="openPage(this)" href="javascript:;">
+                    <i class="Hui-iconfont Hui-iconfont-add"></i>
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-secondary size-S" title="添加违纪信息" data-href="{:U('Home/Disorder/add_student_3',['id'=>$v['id']])}" onclick="openPage(this)" href="javascript:;">
+                    <i class="Hui-iconfont Hui-iconfont-add"></i>
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-secondary size-S" title="添加附件" data-href="{:U('Home/Disorder/add_attachment',['id'=>$v['id']])}" onclick="openPage(this)" href="javascript:;">
+                        <i class="Hui-iconfont Hui-iconfont-upload"></i>
+                    </a>
+                </td>
+            </tr>
+            </volist>
+            </tbody>
+        </table>
+        {$data.page}
+    </div>
+</div>
+<include file="Common/footer" />
+<script type="text/javascript" src="/static/ui/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+</body>
+</html>

@@ -1,7 +1,9 @@
-<include file="Common/header"/>
+<!DOCTYPE HTML>
+<html>
+<include file="Common/header" />
 <style>
-    a {
-        text-decoration: none;
+    a{
+        text-decoration:none;
     }
 </style>
 <body>
@@ -21,42 +23,41 @@
             </thead>
             <tbody>
             <volist name="user_list" id="v">
-                <tr class="text-c">
-                    <td>{$v.number}</td>
-                    <td><a href="{:U('Home/Area/area_list',['pid'=>$v['area_id']])}">{$v.nickname}</a></td>
-                    <td>{$v.email}</td>
-                    <td>{$v.mobile}</td>
-                    <td>{$v.id_card}</td>
-                    <td>
-                        <if condition="$v['sex']">男
-                            <else/>
-                            女
-                        </if>
-                    </td>
-                    <td data-id="{$v.area}" class="area"><span><i class="Hui-iconfont Hui-iconfont-home"></i></span>
-                    </td>
-
-                </tr>
+            <tr class="text-c">
+                <td>{$v.number}</td>
+                <td><a href="{:U('Home/Area/area_list',['pid'=>$v['area_id']])}">{$v.nickname}</a></td>
+                <td>{$v.email}</td>
+                <td>{$v.mobile}</td>
+                <td>{$v.id_card}</td>
+                <td><if condition="$v['sex']">男<else/>女</if></td>
+                <td data-id="{$v.area}" class="area"><span><i class="Hui-iconfont Hui-iconfont-home"></i></span></td>
+                <!--<td class="f-14 td-manage">-->
+                    <!--<a onClick="openPage(this)" data-href="{:U('Home/Area/add',['id'=>$v['area_id']])}" href="javascript:;" title="添加下级地区">-->
+                        <!--<i class="Hui-iconfont Hui-iconfont-add"></i>-->
+                    <!--</a>-->
+                <!--</td>-->
+            </tr>
             </volist>
             </tbody>
         </table>
         {$page}
     </div>
 </div>
-<include file="Common/footer"/>
+<include file="Common/footer" />
 <script>
     $(function () {
         $('.area').mouseover(function () {
             var j = $(this);
             var id = j.attr('data-id');
-            $.post('{:U("Home/Area/ajax_path_info")}', {id: id}, function (e) {
+            $.post('{:U("Home/Area/ajax_path_info")}',{id:id},function(e){
                 var str = '';
-                for (var i in e) {
+                for (var i in e)
+                {
                     str += e[i].area_name + '/';
                 }
-                str = str.substr(0, str.length - 1);
+                str = str.substr(0,str.length-1);
                 //layer.tips(str, j.children());
-                layer.tips(str, j.children(), {tips: [1, '#5a98de'], time: 10000});
+                layer.tips(str, j.children(), { tips: [1, '#5a98de'], time: 10000 });
             })
         });
     })

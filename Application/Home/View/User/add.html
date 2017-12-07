@@ -11,7 +11,7 @@
                 <span class="c-red">*</span>编号：
             </label>
             <div class="formControls col-xs-4 col-sm-5">
-                <input type="text" class="input-text" id="number">
+                <input type="text" class="input-text" id="number" >
             </div>
         </div>
 
@@ -100,14 +100,16 @@
 
         $('#subBtn').click(function () {
             var role = parseInt($('#role').val());
-            if (!role) {
-                errorAlert('请选择正确的角色', 2000);
+            if(!role)
+            {
+                errorAlert('请选择正确的角色',2000);
                 return false;
             }
             var areas = document.getElementsByClassName('area');
-            var area = parseInt(areas[areas.length - 1].value);
-            if (area == 0) {
-                errorAlert('请选择正确的地区', 2000);
+            var area = parseInt(areas[areas.length-1].value);
+            if(area == 0)
+            {
+                errorAlert('请选择正确的地区',2000);
                 return false;
             }
             var nickname = $('#nickname').val();
@@ -116,18 +118,11 @@
             var id_card = $('#id_card').val();
             var mobile = $('#mobile').val();
 
-            $.post('', {
-                nickname: nickname,
-                email: email,
-                id_card: id_card,
-                mobile: mobile,
-                role: role,
-                area: area,
-                number: number
-            }, function (e) {
-                if (e.status) {
+            $.post('',{nickname:nickname,email:email,id_card:id_card,mobile:mobile,role:role,area:area,number:number},function (e) {
+                if(e.status)
+                {
                     window.location.reload();
-                } else {
+                }else {
                     errorAlert(e.info);
                 }
             })
@@ -138,22 +133,25 @@
     });
 
     function get_area(domId) {
-        $(document).on('change', '.' + domId, function () {
+        $(document).on('change','.'+domId,function(){
             var t = $(this);
             t.parent().parent().nextAll().remove();
             var id = parseInt(t.val());
-            if (id == 0) {
+            if(id == 0)
+            {
                 return false;
             }
-            $.post('{:U("Home/Area/ajax_area_list")}', {pid: id}, function (e) {
-                if (e.length) {
+            $.post('{:U("Home/Area/ajax_area_list")}',{pid:id},function (e) {
+                if(e.length)
+                {
                     var tmp = '<div class="formControls col-xs-2">' +
                         '                <span class="select-box">' +
                         '                    <select class="select area" size="1">' +
                         '                        <option value="0" selected>请选择地区</option>';
-                    for (var i in e) {
+                    for (var i in e)
+                    {
                         var j = e[i];
-                        tmp += '<option value="' + j.area_id + '">' + j.area_name + '</option>';
+                        tmp += '<option value="'+j.area_id+'">'+j.area_name+'</option>';
                     }
                     tmp += '</select></span></div>';
                     t.parent().parent().after(tmp);

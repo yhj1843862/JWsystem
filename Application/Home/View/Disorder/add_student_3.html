@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<include file="Common/header"/>
+<body>
+<article class="page-container">
+    <form action="" method="post" class="form form-horizontal" id="form-member-add">
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                <span class="c-red">*</span>违纪类型：
+            </label>
+            <div class="formControls col-xs-4 col-sm-7">
+                <input type="text" placeholder="请输入违纪类型" class="input-text" id="name">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-6 col-sm-6 col-xs-offset-4 col-sm-offset-3">
+                <button id="subBtn" class="btn btn-primary noradius" type="button">&nbsp;&nbsp;添加违纪类型&nbsp;&nbsp;</button>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-6 col-sm-6 col-xs-offset-4 col-sm-offset-3" id="types">
+                <volist name="list" id="v">
+                    <button class="btn btn-danger size-S noradius mr-5" type="button">{$v.type_name}</button>
+                </volist>
+            </div>
+        </div>
+
+
+    </form>
+</article>
+
+<include file="Common/footer"/>
+<script>
+    var did = '{$did}';
+    $(function () {
+
+        $('#subBtn').click(function () {
+
+            var name = $('#name').val();
+            if(name.length < 2)
+            {
+                errorAlert('违纪类型内容过短');
+                return ;
+            }
+            $.post('{:U("add_disorder_type")}', {name:name, did:did}, function (e) {
+                if(e.status)
+                {
+                    $('#types').append('<button class="btn btn-danger size-S noradius mr-5" type="button">'+name+'</button>');
+                    layer.confirm('类型添加成功，是否继续添加？', {
+                        btn: ['继续','不了']
+                    }, function(index){
+                        $('#name').val('').focus();
+                        layer.close(index);
+                    }, function(){
+                        window.parent.location.reload();
+                    });
+                }else{
+                    errorAlert(e.info);
+                }
+            });
+
+        });
+
+        //双击已经添加过的违纪类型可以达到删除危机类型的目的
+    })
+
+</script>
+</body>
+</html>
